@@ -1,29 +1,113 @@
-:root { 
-  --brand:#2bb380; 
-  --ink:#0f172a; 
-  --muted:#64748b; 
-  --bg:#e2f6ef; 
-  --card:#ffffff;
+:root{
+  /* Paleta oficial */
+  --brand: #3CB3C0;        /* teal principal */
+  --brand-dark: #1A7175;   /* teal escuro */
+  --accent-1: #CFF9B9;     /* verde clarinho */
+  --accent-2: #9FD983;     /* verde médio */
+  --accent-3: #84C165;     /* verde forte */
+  --bg: #FEFED3;           /* creme de fundo */
+  --muted: #64748b;        /* texto secundário */
+  --ink: #0f172a;          /* texto principal */
+  --card: #ffffff;         /* cartões */
+  --border: #e5e7eb;
 }
-*{box-sizing:border-box} html,body{height:100%}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial;color:var(--ink);background:var(--bg)}
-.app-header{display:flex;align-items:center;gap:.75rem;padding:1rem;border-bottom:1px solid #e5e7eb;background:var(--card);position:sticky;top:0;z-index:10}
-.logo{width:36px;height:36px;border-radius:10px}
-.user-badge{margin-left:auto;font-size:.9rem;color:var(--muted)}
-.view{display:flex;justify-content:center;align-items:flex-start;padding:2rem;gap:1rem;flex-wrap:wrap}
+
+/* Reset e base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial;
+  color:var(--ink);
+  background:var(--bg);
+}
+
+/* Cabeçalho com logo maior */
+.app-header{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem;
+  border-bottom:1px solid var(--border);
+  background:var(--card);
+  position:sticky;top:0;z-index:10;
+}
+.brand{display:flex;align-items:center;gap:.75rem}
+.logo{
+  width:72px;height:72px;  /* AQUI aumentei o logo */
+  border-radius:16px;      /* quinas suaves (combina com maskable) */
+  object-fit:contain;
+}
+@media (max-width:640px){
+  .logo{width:56px;height:56px;} /* menor em celular */
+}
+.tt h1{font-size:1.4rem;margin:0;line-height:1}
+.tt .sub{font-size:.9rem;color:var(--brand-dark);font-weight:600}
+
+/* Navegação (só aparece logado) */
+nav a{
+  margin-right:.6rem;text-decoration:none;color:var(--ink);
+  padding:.35rem .6rem;border-radius:10px
+}
+nav a:hover{background:#00000010}
+.user-badge{margin-left:auto;font-size:.95rem;color:var(--brand-dark)}
+
+/* Layout de views e cartões */
+.view{
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:2rem;gap:1rem;flex-wrap:wrap
+}
 .hidden{display:none}
-.card{flex:1 1 420px;max-width:560px;background:var(--card);border:1px solid #e5e7eb;border-radius:16px;padding:1.25rem;box-shadow:0 4px 10px rgba(16,17,19,.05)}
+.card{
+  flex:1 1 420px;max-width:980px;background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;padding:1.25rem;
+  box-shadow:0 6px 14px rgba(16,17,19,.06)
+}
+
+/* Formulários e botões nas cores da marca */
 .field{display:flex;flex-direction:column;gap:.35rem;margin:.5rem 0}
 label{font-weight:600}
-input{padding:.8rem;border:1px solid #cbd5e1;border-radius:10px;font-size:1rem;background:white}
-button{appearance:none;border:0;background:var(--brand);color:white;padding:.85rem 1rem;border-radius:12px;font-weight:700;cursor:pointer}
-button.secondary{background:#1118270d;color:#111827;border:1px solid #e5e7eb}
+input,textarea,select{
+  padding:.85rem;border:1px solid #cbd5e1;border-radius:12px;
+  font-size:1rem;background:white
+}
+button{
+  appearance:none;border:0;background:var(--brand);color:#001814;
+  padding:.9rem 1.1rem;border-radius:14px;font-weight:800;cursor:pointer
+}
+button:hover{filter:brightness(0.98)}
+button.secondary{
+  background: var(--accent-1);
+  color:#0b4b47;border:1px solid #b7f0a6
+}
 button:disabled{opacity:.6;cursor:not-allowed}
+
 .muted{color:var(--muted)}
 .msg{margin-top:.5rem;min-height:1.25rem}
 .intro{color:var(--muted)}
-.install-footer{position:sticky;bottom:0;background:var(--card);border-top:1px solid #e5e7eb;padding:.75rem 1rem;color:var(--muted)}
-.install-footer summary{cursor:pointer;font-weight:700;color:var(--ink)}
-.blank{min-height:50vh;width:min(980px,100%);background:transparent;border:2px dashed #94a3b8;border-radius:16px}
-.floating-exit{position:fixed;right:1rem;bottom:1rem}
-.pre{background:#0b10211a;border:1px solid #c7d2fe;border-radius:12px;padding:1rem;overflow:auto}
+
+/* Rodapé de instalação */
+.install-footer{
+  position:sticky;bottom:0;background:var(--card);
+  border-top:1px solid var(--border);padding:.75rem 1rem;color:var(--muted)
+}
+.install-footer summary{cursor:pointer;font-weight:800;color:var(--brand-dark)}
+
+/* Tabelas e utilitários */
+.table{width:100%;border-collapse:separate;border-spacing:0 6px}
+.table tr{background:#f8fafc}
+.table td,.table th{padding:.6rem .75rem}
+.badge{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.2rem .5rem;border-radius:999px;
+  background:#0ea5e914;color:#0369a1;border:1px solid #bae6fd
+}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.kbd{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  background:#11182712;border:1px solid var(--border);border-radius:8px;
+  padding:.1rem .4rem
+}
+
+/* Destaques suaves usando a paleta */
+.card h2,.card h3{color:var(--brand-dark)}
+.card .highlight{background:var(--accent-1);border:1px solid #b7f0a6}
