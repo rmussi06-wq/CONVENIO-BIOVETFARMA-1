@@ -1,0 +1,29 @@
+:root { 
+  --brand:#2bb380; 
+  --ink:#0f172a; 
+  --muted:#64748b; 
+  --bg:#e2f6ef; 
+  --card:#ffffff;
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial;color:var(--ink);background:var(--bg)}
+.app-header{display:flex;align-items:center;gap:.75rem;padding:1rem;border-bottom:1px solid #e5e7eb;background:var(--card);position:sticky;top:0;z-index:10}
+.logo{width:36px;height:36px;border-radius:10px}
+.user-badge{margin-left:auto;font-size:.9rem;color:var(--muted)}
+.view{display:flex;justify-content:center;align-items:flex-start;padding:2rem;gap:1rem;flex-wrap:wrap}
+.hidden{display:none}
+.card{flex:1 1 420px;max-width:560px;background:var(--card);border:1px solid #e5e7eb;border-radius:16px;padding:1.25rem;box-shadow:0 4px 10px rgba(16,17,19,.05)}
+.field{display:flex;flex-direction:column;gap:.35rem;margin:.5rem 0}
+label{font-weight:600}
+input{padding:.8rem;border:1px solid #cbd5e1;border-radius:10px;font-size:1rem;background:white}
+button{appearance:none;border:0;background:var(--brand);color:white;padding:.85rem 1rem;border-radius:12px;font-weight:700;cursor:pointer}
+button.secondary{background:#1118270d;color:#111827;border:1px solid #e5e7eb}
+button:disabled{opacity:.6;cursor:not-allowed}
+.muted{color:var(--muted)}
+.msg{margin-top:.5rem;min-height:1.25rem}
+.intro{color:var(--muted)}
+.install-footer{position:sticky;bottom:0;background:var(--card);border-top:1px solid #e5e7eb;padding:.75rem 1rem;color:var(--muted)}
+.install-footer summary{cursor:pointer;font-weight:700;color:var(--ink)}
+.blank{min-height:50vh;width:min(980px,100%);background:transparent;border:2px dashed #94a3b8;border-radius:16px}
+.floating-exit{position:fixed;right:1rem;bottom:1rem}
+.pre{background:#0b10211a;border:1px solid #c7d2fe;border-radius:12px;padding:1rem;overflow:auto}
