@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -5,19 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Convênio Biovetfarma</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" content="#2bb380" />
-  <link rel="icon" href="./assets/icons/favicon-32.png" sizes="32x32">
-  <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon-180.png">
+  <meta name="theme-color" content="#3CB3C0" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <header class="app-header">
-    <img src="./assets/icons/icon-192.png" alt="Biovetfarma" class="logo">
-    <h1>Biovetfarma</h1>
+    <div class="brand">
+      <img src="./assets/brand/logo-header.png" alt="Biovetfarma" class="logo">
+      <div class="tt">
+        <h1>Biovetfarma</h1>
+        <span class="sub">Convênio</span>
+      </div>
+    </div>
+    <nav id="topNav" class="hidden">
+      <a href="#/home" data-link>Início</a>
+      <a href="#/solicitacoes" data-link>Minhas solicitações</a>
+      <a href="#/nova" data-link>Nova solicitação</a>
+    </nav>
     <div id="userBadge" class="user-badge"></div>
   </header>
 
-  <!-- Tela de Login -->
+  <!-- Login -->
   <main id="loginView" class="view">
     <div class="card">
       <h2>Entrar</h2>
@@ -25,26 +34,47 @@
       <div class="field"><label>Email</label><input id="email" type="email" autocomplete="username" /></div>
       <div class="field"><label>Senha</label><input id="password" type="password" autocomplete="current-password" /></div>
       <button id="btnLogin">Entrar</button>
-      <p class="muted">Primeiro acesso? <a id="btnSignup" href="#">Criar conta</a></p>
+      <div class="row-actions">
+        <a id="btnOpenSignup" href="#" class="link">Criar conta</a>
+        <a id="btnForgot" href="#" class="link">Esqueci minha senha</a>
+      </div>
       <p id="authMsg" class="msg"></p>
     </div>
-
-    <div style="margin-top:1rem" class="card">
+    <div class="card">
       <h3>Teste backend</h3>
-      <button id="btnPing" class="secondary">Ping Apps Script</button>
-
+      <button id="btnPing" class="secondary">Ping autenticado</button>
       <pre id="pingOut" class="pre"></pre>
     </div>
-
   </main>
 
-  <!-- Área Logada (página em branco para edição futura) -->
+  <!-- App (área logada) -->
   <section id="appView" class="view hidden">
-    <div class="blank">
-      <!-- Página em branco após login. Vamos montar as telas do Convênio aqui. -->
+    <div class="container">
+      <div id="routerOutlet" class="card"></div>
     </div>
     <button id="btnLogout" class="secondary floating-exit">Sair</button>
   </section>
+
+  <!-- Signup Modal -->
+  <dialog id="signupModal" class="modal">
+    <form method="dialog" class="modal-card" id="signupForm">
+      <h3>Criar conta</h3>
+      <div class="grid-2">
+        <div class="field"><label>Nome completo</label><input id="su_nome" type="text" autocomplete="name" /></div>
+        <div class="field"><label>ID Prime Software</label><input id="su_prime" type="text" inputmode="numeric" /></div>
+      </div>
+      <div class="field"><label>Email</label><input id="su_email" type="email" autocomplete="email" /></div>
+      <div class="grid-2">
+        <div class="field"><label>Senha</label><input id="su_senha" type="password" autocomplete="new-password" /></div>
+        <div class="field"><label>Confirmar senha</label><input id="su_conf" type="password" autocomplete="new-password" /></div>
+      </div>
+      <p id="su_msg" class="msg"></p>
+      <div class="modal-actions">
+        <button value="cancel" class="secondary">Cancelar</button>
+        <button id="btnDoSignup" value="default">Criar conta</button>
+      </div>
+    </form>
+  </dialog>
 
   <footer class="install-footer">
     <details>

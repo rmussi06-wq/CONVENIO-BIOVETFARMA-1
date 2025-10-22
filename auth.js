@@ -1,13 +1,15 @@
+
 import { auth } from './firebase-init.js';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
+  signOut,
+  sendPasswordResetEmail,
+  updateProfile
 } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js';
 
-const $ = sel => document.querySelector(sel);
-
+const $ = s => document.querySelector(s);
 const loginView  = $('#loginView');
 const appView    = $('#appView');
 const authMsg    = $('#authMsg');
@@ -15,110 +17,126 @@ const userBadge  = $('#userBadge');
 const topNav     = document.getElementById('topNav');
 
 const btnLogin   = $('#btnLogin');
-const btnSignup  = $('#btnSignup');
 const btnLogout  = $('#btnLogout');
 
-function show(view) {
-  const showApp = view === 'app';
-  loginView?.classList.toggle('hidden', showApp);
-  appView?.classList.toggle('hidden', !showApp);
-  topNav?.classList.toggle('hidden', !showApp);
+// Modal signup
+const dlgSignup  = document.getElementById('signupModal');
+const btnOpenSignup = document.getElementById('btnOpenSignup');
+const btnDoSignup = document.getElementById('btnDoSignup');
+const suMsg      = document.getElementById('su_msg');
+
+// Forgot password
+const btnForgot  = document.getElementById('btnForgot');
+
+function show(v){
+  const app = v==='app';
+  loginView.classList.toggle('hidden', app);
+  appView.classList.toggle('hidden', !app);
+  topNav?.classList.toggle('hidden', !app);
 }
 
-function isValidEmail(v) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-}
-function friendlyError(e) {
-  const code = String(e?.code || '').replace('auth/', '');
-  const map = {
-    'invalid-email': 'E-mail inválido.',
-    'missing-email': 'Informe o e-mail.',
-    'missing-password': 'Informe a senha.',
-    'weak-password': 'Senha muito curta (mín. 6 caracteres).',
-    'user-not-found': 'Usuário não encontrado.',
-    'wrong-password': 'Senha incorreta.',
-    'email-already-in-use': 'Este e-mail já está em uso.'
+function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function friendly(e){
+  const c = String(e?.code||'').replace('auth/','');
+  const m = {
+    'invalid-email':'E-mail inválido.',
+    'missing-email':'Informe o e-mail.',
+    'missing-password':'Informe a senha.',
+    'weak-password':'Senha muito curta (mín. 6).',
+    'user-not-found':'Usuário não encontrado.',
+    'wrong-password':'Senha incorreta.',
+    'email-already-in-use':'E-mail já está em uso.'
   };
-  return map[code] || (e?.message || 'Erro inesperado');
+  return m[c] || e?.message || 'Erro inesperado';
 }
-function setBusy(btn, busy, labelIdle, labelBusy) {
-  if (!btn) return;
-  btn.disabled = !!busy;
-  btn.textContent = busy ? labelBusy : labelIdle;
+function busy(btn, on, idle, doing){
+  btn.disabled = !!on; btn.textContent = on ? doing : idle;
 }
 
-/* ===== Ações ===== */
-
+/* ========== Login ========== */
 btnLogin?.addEventListener('click', async () => {
   authMsg.textContent = '';
-  const email = $('#email')?.value.trim() || '';
-  const password = $('#password')?.value || '';
-
-  if (!isValidEmail(email)) {
-    authMsg.textContent = 'Informe um e-mail válido.';
-    return;
-  }
-  if (!password) {
-    authMsg.textContent = 'Informe a senha.';
-    return;
-  }
-
-  setBusy(btnLogin, true, 'Entrar', 'Entrando...');
+  const email = $('#email').value.trim();
+  const password = $('#password').value;
+  if (!isEmail(email)) { authMsg.textContent = 'Informe um e-mail válido.'; return; }
+  if (!password) { authMsg.textContent = 'Informe a senha.'; return; }
+  busy(btnLogin, true, 'Entrar', 'Entrando...');
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    // onAuthStateChanged cuida do resto
-  } catch (e) {
-    authMsg.textContent = `Firebase: ${friendlyError(e)}`;
-  } finally {
-    setBusy(btnLogin, false, 'Entrar', 'Entrando...');
-  }
+  } catch (e) { authMsg.textContent = 'Firebase: ' + friendly(e); }
+  finally { busy(btnLogin, false, 'Entrar', 'Entrando...'); }
 });
 
-btnSignup?.addEventListener('click', async (ev) => {
-  ev.preventDefault();
-  authMsg.textContent = '';
-  const email = $('#email')?.value.trim() || '';
-  const password = $('#password')?.value || '';
+/* Enter envia login quando estiver na view de login */
+document.addEventListener('keydown', (e)=>{
+  if (e.key==='Enter' && !appView || (e.key==='Enter' && !appView.classList.contains('hidden') )) return;
+  if (e.key==='Enter') btnLogin?.click();
+});
 
-  if (!isValidEmail(email)) {
-    authMsg.textContent = 'Informe um e-mail válido.';
-    return;
-  }
-  if (!password || password.length < 6) {
-    authMsg.textContent = 'Defina uma senha com pelo menos 6 caracteres.';
-    return;
-  }
+/* ========== Abrir modal de cadastro ========== */
+btnOpenSignup?.addEventListener('click', (e)=>{
+  e.preventDefault();
+  suMsg.textContent='';
+  dlgSignup.showModal();
+});
 
-  setBusy(btnSignup, true, 'Criar conta', 'Criando...');
+/* ========== Criar conta (profissional) ========== */
+btnDoSignup?.addEventListener('click', async (e) => {
+  e.preventDefault();
+  suMsg.textContent='';
+  const nome = $('#su_nome').value.trim();
+  const prime = $('#su_prime').value.trim();
+  const email = $('#su_email').value.trim();
+  const senha = $('#su_senha').value;
+  const conf  = $('#su_conf').value;
+  if (!nome){ suMsg.textContent='Informe seu nome completo.'; return; }
+  if (!isEmail(email)){ suMsg.textContent='Informe um e-mail válido.'; return; }
+  if (!senha || senha.length<6){ suMsg.textContent='Senha deve ter pelo menos 6 caracteres.'; return; }
+  if (senha !== conf){ suMsg.textContent='Senha e confirmação não conferem.'; return; }
+  // Prime ID opcionalmente numérico (não bloqueia cadastro)
+  if (prime && !/^\d{1,20}$/.test(prime)){ suMsg.textContent='ID Prime deve ter apenas números.'; return; }
+
+  busy(btnDoSignup, true, 'Criar conta', 'Criando...');
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    authMsg.textContent = 'Conta criada. Você já está logado.';
+    const cred = await createUserWithEmailAndPassword(auth, email, senha);
+    // Salva displayName (nome) no perfil
+    await updateProfile(cred.user, { displayName: nome });
+    // Guarda Prime ID localmente (até definirmos backend/Firestore)
+    if (prime) localStorage.setItem('prime_id', prime);
+    suMsg.textContent = 'Conta criada com sucesso!';
+    dlgSignup.close(); // onAuthStateChanged vai mostrar o app
   } catch (e) {
-    authMsg.textContent = `Firebase: ${friendlyError(e)}`;
+    suMsg.textContent = 'Firebase: ' + friendly(e);
   } finally {
-    setBusy(btnSignup, false, 'Criar conta', 'Criando...');
+    busy(btnDoSignup, false, 'Criar conta', 'Criando...');
   }
 });
 
-btnLogout?.addEventListener('click', async () => {
-  setBusy(btnLogout, true, 'Sair', 'Saindo...');
-  try { await signOut(auth); } finally { setBusy(btnLogout, false, 'Sair', 'Saindo...'); }
+/* ========== Esqueci minha senha ========== */
+btnForgot?.addEventListener('click', async (e)=>{
+  e.preventDefault();
+  const email = prompt('Informe seu e-mail para recuperar a senha:');
+  if (!email) return;
+  if (!isEmail(email)) { alert('E-mail inválido.'); return; }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert('Enviamos um e-mail com instruções de redefinição de senha.');
+  } catch (err) {
+    alert('Erro: ' + friendly(err));
+  }
 });
 
-/* Enter = enviar login */
-document.addEventListener('keydown', (ev) => {
-  if (ev.key === 'Enter' && !appView?.classList.contains('hidden')) return;
-  if (ev.key === 'Enter') btnLogin?.click();
-});
+/* ========== Logout ========== */
+btnLogout?.addEventListener('click', ()=> signOut(auth));
 
-/* Guarda de sessão/rota */
+/* ========== Guarda de sessão ========== */
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    userBadge && (userBadge.textContent = user.email || 'Logado');
+    userBadge.textContent = user.displayName ? `${user.displayName} · ${user.email}` : (user.email || 'Logado');
     show('app');
-    if (!location.hash || location.hash === '#/') location.hash = '#/home';
+    if (!location.hash || location.hash==='#/') location.hash = '#/home';
   } else {
-    userBadge && (userBadge.textContent = '');
+    userBadge.textContent = '';
     show('login');
     location.hash = '#/login';
   }
