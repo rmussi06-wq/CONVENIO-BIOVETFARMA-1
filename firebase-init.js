@@ -1,6 +1,5 @@
-// Firebase v12.4.0
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js';
-import { getAuth } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js';
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBwQzMILAfxVqxnB4_ZNMfAZ1hTOigI-o8",
