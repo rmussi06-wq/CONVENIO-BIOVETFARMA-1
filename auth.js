@@ -1,4 +1,3 @@
-
 import { auth } from './firebase-init.js';
 import {
   signInWithEmailAndPassword,
@@ -8,6 +7,7 @@ import {
   sendPasswordResetEmail,
   updateProfile
 } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js';
+import { callApi } from './app.js';
 
 const $ = s => document.querySelector(s);
 const loginView  = $('#loginView');
@@ -93,18 +93,20 @@ btnDoSignup?.addEventListener('click', async (e) => {
   if (!isEmail(email)){ suMsg.textContent='Informe um e-mail válido.'; return; }
   if (!senha || senha.length<6){ suMsg.textContent='Senha deve ter pelo menos 6 caracteres.'; return; }
   if (senha !== conf){ suMsg.textContent='Senha e confirmação não conferem.'; return; }
-  // Prime ID opcionalmente numérico (não bloqueia cadastro)
   if (prime && !/^\d{1,20}$/.test(prime)){ suMsg.textContent='ID Prime deve ter apenas números.'; return; }
 
   busy(btnDoSignup, true, 'Criar conta', 'Criando...');
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, senha);
-    // Salva displayName (nome) no perfil
     await updateProfile(cred.user, { displayName: nome });
-    // Guarda Prime ID localmente (até definirmos backend/Firestore)
-    if (prime) localStorage.setItem('prime_id', prime);
+    // Registra no backend (Sheets + e-mail admin)
+    try {
+      await callApi('register', { method:'POST', body: { idPrime: prime, nome, email } });
+    } catch(err) {
+      console.warn('Falha ao registrar no backend:', err);
+    }
     suMsg.textContent = 'Conta criada com sucesso!';
-    dlgSignup.close(); // onAuthStateChanged vai mostrar o app
+    dlgSignup.close();
   } catch (e) {
     suMsg.textContent = 'Firebase: ' + friendly(e);
   } finally {
@@ -129,7 +131,6 @@ btnForgot?.addEventListener('click', async (e)=>{
 /* ========== Logout ========== */
 btnLogout?.addEventListener('click', ()=> signOut(auth));
 
-/* ========== Guarda de sessão ========== */
 onAuthStateChanged(auth, (user) => {
   if (user) {
     userBadge.textContent = user.displayName ? `${user.displayName} · ${user.email}` : (user.email || 'Logado');

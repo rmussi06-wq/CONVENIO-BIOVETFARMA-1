@@ -1,1 +1,1 @@
-const CACHE='bfarma-v5';self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE))});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))) });
+const CACHE='bfarma-v6';self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE))});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))) });
