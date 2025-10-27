@@ -4,36 +4,139 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Convênio Biovetfarma</title>
-  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="manifest" href="./manifest.webmanifest" />
   <meta name="theme-color" content="#3CB3C0" />
-  <link rel="stylesheet" href="./styles.css?v=9" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css?v=10" />
 </head>
 <body>
   <header class="app-header">
     <div class="brand">
-      <img src="./assets/brand/logo-header.png" alt="Biovetfarma" class="logo">
+      <img src="./assets/brand/logo-header.png" alt="Biovetfarma" class="logo" />
       <div class="tt">
         <h1>Biovetfarma</h1>
         <span class="sub">Convênio</span>
       </div>
     </div>
-    <div id="userBadge" class="user-badge"></div>
+    <div class="header-right">
+      <nav id="topNav" class="top-nav hidden">
+        <a href="#/home" data-nav>Início</a>
+        <a href="#/beneficios" data-nav>Benefícios</a>
+        <a href="#/documentos" data-nav>Documentos</a>
+      </nav>
+      <div class="user-area">
+        <div id="userBadge" class="user-badge"></div>
+        <button id="btnLogout" class="text-btn hidden" type="button">Sair</button>
+      </div>
+    </div>
   </header>
 
-  <section id="appView" class="view">
-    <div class="card" id="testCard">
-      <h3>Teste Sheets</h3>
-      <p>Clique para escrever <b>"deu certo"</b> na célula <b>A3</b> da aba <b>FUNCIONARIOS</b>.</p>
-      <button id="btnTestWrite">Testar escrita</button>
-      <pre id="testOut" style="margin-top:.75rem; background:#f8fafc; padding:.5rem; border-radius:8px; overflow:auto"></pre>
-    </div>
-  </section>
+  <main class="app-main">
+    <section id="loginView" class="view">
+      <div class="card auth-card">
+        <h2>Acessar convênio</h2>
+        <p class="muted">Informe seu e-mail e senha cadastrados.</p>
+        <div id="authMsg" class="form-msg"></div>
+        <label class="field" for="email">
+          <span>E-mail</span>
+          <input id="email" type="email" autocomplete="email" placeholder="profissional@exemplo.com" required />
+        </label>
+        <label class="field" for="password">
+          <span>Senha</span>
+          <input id="password" type="password" autocomplete="current-password" placeholder="••••••" required />
+        </label>
+        <button id="btnLogin" type="button">Entrar</button>
+        <div class="auth-actions">
+          <button id="btnForgot" class="text-btn" type="button">Esqueci minha senha</button>
+          <a id="btnOpenSignup" href="#" class="text-link">Quero me cadastrar</a>
+        </div>
+      </div>
+    </section>
 
-  <script type="module" src="./firebase-init.js?v=9"></script>
-  <script type="module" src="./app.js?v=9"></script>
+    <section id="appView" class="view hidden">
+      <div class="routes">
+        <section class="route" data-route="home">
+          <div class="card">
+            <h2>Bem-vindo ao convênio</h2>
+            <p class="muted">Organizamos os benefícios e documentos essenciais dos profissionais Biovetfarma em um só lugar.</p>
+            <ul class="badge-list">
+              <li>Cartão digital</li>
+              <li>Clínicas parceiras</li>
+              <li>Atendimento preferencial</li>
+              <li>Documentos do convênio</li>
+            </ul>
+          </div>
+
+          <div class="card" id="testCard">
+            <h3>Teste Sheets</h3>
+            <p class="muted">Clique para escrever <strong>"deu certo"</strong> na aba <strong>FUNCIONARIOS</strong> da planilha.</p>
+            <button id="btnTestWrite" type="button">Testar escrita</button>
+            <pre id="testOut"></pre>
+          </div>
+        </section>
+
+        <section class="route hidden" data-route="beneficios">
+          <div class="card">
+            <h2>Benefícios do convênio</h2>
+            <ul class="feature-grid">
+              <li><strong>Descontos exclusivos</strong> em procedimentos veterinários nas clínicas parceiras.</li>
+              <li><strong>Rede credenciada</strong> com contatos atualizados para facilitar o agendamento.</li>
+              <li><strong>Suporte dedicado</strong> para dúvidas sobre elegibilidade e regras de uso.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="route hidden" data-route="documentos">
+          <div class="card">
+            <h2>Documentos e orientações</h2>
+            <p class="muted">Em breve você encontrará aqui modelos de termos, formulários e materiais para download.</p>
+            <p class="muted">Enquanto isso, mantenha seus dados atualizados para agilizar o acesso.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="signupModal" class="modal">
+    <div class="modal-content">
+      <h2>Cadastro de profissional</h2>
+      <p class="muted">Preencha os dados abaixo para liberar o acesso ao convênio.</p>
+      <div id="su_msg" class="form-msg"></div>
+      <label class="field" for="su_nome">
+        <span>Nome completo</span>
+        <input id="su_nome" type="text" autocomplete="name" placeholder="Nome e sobrenome" required />
+      </label>
+      <label class="field" for="su_prime">
+        <span>ID Prime (opcional)</span>
+        <input id="su_prime" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Somente números" />
+      </label>
+      <label class="field" for="su_email">
+        <span>E-mail</span>
+        <input id="su_email" type="email" autocomplete="email" placeholder="profissional@exemplo.com" required />
+      </label>
+      <label class="field" for="su_senha">
+        <span>Senha</span>
+        <input id="su_senha" type="password" autocomplete="new-password" required />
+      </label>
+      <label class="field" for="su_conf">
+        <span>Confirme a senha</span>
+        <input id="su_conf" type="password" autocomplete="new-password" required />
+      </label>
+      <div class="modal-actions">
+        <button id="btnCloseSignup" class="text-btn" type="button">Cancelar</button>
+        <button id="btnDoSignup" type="button">Criar conta</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="./firebase-init.js?v=10"></script>
+  <script type="module" src="./app.js?v=10"></script>
+  <script type="module" src="./auth.js?v=10"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=9'));
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=10'));
     }
   </script>
 </body>
