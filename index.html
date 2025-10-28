@@ -1,143 +1,2110 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Convênio Biovetfarma</title>
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <meta name="theme-color" content="#3CB3C0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=10" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convênio Biovetfarma DEMO</title>
+  <style>
+    :root {
+      --primaria: #0a7f7f;
+      --primaria-escura: #075e5e;
+      --secundaria: #f2b705;
+      --fundo: #f7fafa;
+      --texto: #0f1e1e;
+      --borda: #dde5e5;
+      --card-bg: #ffffff;
+      --muted: #5a6d6d;
+      --sucesso: #1f9d55;
+      --erro: #c0392b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
+      min-height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: linear-gradient(90deg, var(--primaria) 0%, var(--primaria-escura) 100%);
+      color: #fff;
+      padding: 0.75rem 1rem 0.5rem;
+      box-shadow: 0 6px 20px rgba(7, 94, 94, 0.25);
+    }
+
+    header .brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    header .brand span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: none;
+    }
+
+    nav {
+      margin-top: 0.75rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.5rem;
+    }
+
+    nav button {
+      appearance: none;
+      border: none;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    nav button.active,
+    nav button:hover {
+      background: var(--secundaria);
+      color: var(--texto);
+      transform: translateY(-1px);
+    }
+
+    main {
+      padding: 1rem;
+      padding-bottom: 3rem;
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .view {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--borda);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 12px 30px rgba(15, 30, 30, 0.05);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      color: var(--primaria-escura);
+    }
+
+    .card p.lead {
+      margin-top: 0;
+      color: var(--muted);
+    }
+
+    form {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    textarea,
+    select,
+    input[type="file"] {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.65rem;
+      border: 1px solid var(--borda);
+      background: #fff;
+      color: var(--texto);
+      font-size: 0.95rem;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primaria);
+      box-shadow: 0 0 0 3px rgba(10, 127, 127, 0.18);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    button,
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 0.7rem;
+      padding: 0.65rem 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      font-size: 0.95rem;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .btn-primary {
+      background: var(--primaria);
+      color: #fff;
+      box-shadow: 0 8px 16px rgba(10, 127, 127, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--primaria-escura);
+    }
+
+    .btn-secondary {
+      background: rgba(10, 127, 127, 0.12);
+      color: var(--primaria-escura);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--primaria-escura);
+      padding: 0.4rem 0.65rem;
+    }
+
+    .btn-danger {
+      background: rgba(192, 57, 43, 0.12);
+      color: var(--erro);
+    }
+
+    .btn-success {
+      background: rgba(31, 157, 85, 0.12);
+      color: var(--sucesso);
+    }
+
+    .status {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .status.success {
+      color: var(--sucesso);
+    }
+
+    .status.error {
+      color: var(--erro);
+    }
+
+    .link-button {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--primaria-escura);
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .grid-two {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .list-item {
+      border: 1px solid var(--borda);
+      padding: 0.75rem;
+      border-radius: 0.85rem;
+      background: #fff;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .list-item header {
+      position: relative;
+      background: none;
+      color: inherit;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .list-item-title {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      background: rgba(10, 127, 127, 0.12);
+      color: var(--primaria-escura);
+    }
+
+    .empty {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .history-log {
+      margin-top: 1rem;
+      border-top: 1px solid var(--borda);
+      padding-top: 1rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .history-entry {
+      border: 1px solid var(--borda);
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(10, 127, 127, 0.05);
+    }
+
+    .history-entry time {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      border-radius: 0.85rem;
+      border: 1px solid var(--borda);
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th, td {
+      padding: 0.75rem 0.9rem;
+      text-align: left;
+      border-bottom: 1px solid var(--borda);
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: rgba(10, 127, 127, 0.08);
+      color: var(--primaria-escura);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    tbody tr:hover {
+      background: rgba(10, 127, 127, 0.04);
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .totalizador {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: var(--primaria-escura);
+    }
+
+    .filters {
+      display: grid;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .filters .grid-two {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-status.PENDENTE {
+      background: rgba(242, 183, 5, 0.18);
+      color: #8a6401;
+    }
+
+    .badge-status.AUTORIZADO {
+      background: rgba(31, 157, 85, 0.18);
+      color: var(--sucesso);
+    }
+
+    .badge-status.NEGADO {
+      background: rgba(192, 57, 43, 0.18);
+      color: var(--erro);
+    }
+
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 40;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .toast {
+      background: #fff;
+      border-left: 4px solid var(--primaria);
+      padding: 0.85rem 1rem;
+      min-width: 220px;
+      max-width: 320px;
+      border-radius: 0.85rem;
+      box-shadow: 0 12px 24px rgba(15, 30, 30, 0.18);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      animation: slideIn 0.25s ease;
+    }
+
+    .toast.success {
+      border-left-color: var(--sucesso);
+    }
+
+    .toast.error {
+      border-left-color: var(--erro);
+    }
+
+    .toast button {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 30, 30, 0.35);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      width: min(520px, 100%);
+      box-shadow: 0 18px 38px rgba(15, 30, 30, 0.25);
+      display: grid;
+      gap: 1rem;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      color: inherit;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .modal header h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--primaria-escura);
+    }
+
+    .modal footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    .guard-box {
+      border: 1px dashed var(--borda);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      background: rgba(10, 127, 127, 0.05);
+      color: var(--muted);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.35rem;
+    }
+
+    .chip {
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(10, 127, 127, 0.12);
+      color: var(--primaria-escura);
+      font-weight: 600;
+    }
+
+    .ativo-card {
+      border: 1px solid var(--borda);
+      border-radius: 0.85rem;
+      padding: 0.75rem;
+      background: #fff;
+      display: grid;
+      gap: 0.35rem;
+      cursor: pointer;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .ativo-card:hover,
+    .ativo-card.active {
+      box-shadow: 0 12px 24px rgba(15, 30, 30, 0.12);
+      transform: translateY(-2px);
+      border-color: var(--primaria);
+    }
+
+    .ativo-card h4 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .ativo-card small {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .ativo-detail {
+      border: 1px solid var(--borda);
+      border-radius: 0.85rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .dose-box {
+      display: grid;
+      gap: 0.5rem;
+      background: rgba(10, 127, 127, 0.08);
+      padding: 0.75rem;
+      border-radius: 0.85rem;
+    }
+
+    .dose-values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-weight: 700;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .recent-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    footer.app-footer {
+      text-align: center;
+      padding: 2rem 1rem 1.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (min-width: 768px) {
+      main {
+        padding: 2rem 1.5rem 3rem;
+      }
+
+      nav button {
+        font-size: 0.9rem;
+      }
+
+      .grid-two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pacientes-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+        gap: 1.5rem;
+      }
+
+      .ativos-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+        gap: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="app-header">
-    <div class="brand">
-      <img src="./assets/brand/logo-header.png" alt="Biovetfarma" class="logo" />
-      <div class="tt">
-        <h1>Biovetfarma</h1>
-        <span class="sub">Convênio</span>
-      </div>
-    </div>
-    <div class="header-right">
-      <nav id="topNav" class="top-nav hidden">
-        <a href="#/home" data-nav>Início</a>
-        <a href="#/beneficios" data-nav>Benefícios</a>
-        <a href="#/documentos" data-nav>Documentos</a>
-      </nav>
-      <div class="user-area">
-        <div id="userBadge" class="user-badge"></div>
-        <button id="btnLogout" class="text-btn hidden" type="button">Sair</button>
-      </div>
-    </div>
+  <header>
+    <div class="brand">Biovetfarma Convênio <span>PWA DEMO</span></div>
+    <nav>
+      <button type="button" data-view="login" class="active">1) Login</button>
+      <button type="button" data-view="cadastro">2) Cadastro Prescritor</button>
+      <button type="button" data-view="pacientes">3) Pacientes &amp; Histórico</button>
+      <button type="button" data-view="ativos">4) Ativos &amp; Prescrição</button>
+      <button type="button" data-view="compra">5) Compra / Orçamento</button>
+      <button type="button" data-view="historico">6) Histórico</button>
+      <button type="button" data-view="config">7) Config</button>
+    </nav>
   </header>
-
-  <main class="app-main">
-    <section id="loginView" class="view">
-      <div class="card auth-card">
-        <h2>Acessar convênio</h2>
-        <p class="muted">Informe seu e-mail e senha cadastrados.</p>
-        <div id="authMsg" class="form-msg"></div>
-        <label class="field" for="email">
-          <span>E-mail</span>
-          <input id="email" type="email" autocomplete="email" placeholder="profissional@exemplo.com" required />
-        </label>
-        <label class="field" for="password">
-          <span>Senha</span>
-          <input id="password" type="password" autocomplete="current-password" placeholder="••••••" required />
-        </label>
-        <button id="btnLogin" type="button">Entrar</button>
-        <div class="auth-actions">
-          <button id="btnForgot" class="text-btn" type="button">Esqueci minha senha</button>
-          <a id="btnOpenSignup" href="#" class="text-link">Quero me cadastrar</a>
+  <main>
+    <section id="view-login" class="view active">
+      <div class="card">
+        <h2>Login (DEMO)</h2>
+        <p class="lead">Acesse com seu e-mail cadastrado para visualizar pacientes, prescrições e históricos.</p>
+        <p id="loginStatus" class="status">Não autenticado.</p>
+        <form id="loginForm" autocomplete="off">
+          <div>
+            <label for="loginEmail">E-mail</label>
+            <input type="email" id="loginEmail" required placeholder="nome@clinica.com" />
+          </div>
+          <div>
+            <label for="loginSenha">Senha</label>
+            <input type="password" id="loginSenha" required placeholder="••••••" minlength="4" />
+          </div>
+          <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+        <div class="actions" style="margin-top:1rem;">
+          <button id="logoutBtn" type="button" class="btn-secondary">Sair</button>
+          <button type="button" class="link-button" data-target="cadastro">Criar conta (ir para Cadastro Prescritor)</button>
         </div>
       </div>
     </section>
 
-    <section id="appView" class="view hidden">
-      <div class="routes">
-        <section class="route" data-route="home">
-          <div class="card">
-            <h2>Bem-vindo ao convênio</h2>
-            <p class="muted">Organizamos os benefícios e documentos essenciais dos profissionais Biovetfarma em um só lugar.</p>
-            <ul class="badge-list">
-              <li>Cartão digital</li>
-              <li>Clínicas parceiras</li>
-              <li>Atendimento preferencial</li>
-              <li>Documentos do convênio</li>
-            </ul>
+    <section id="view-cadastro" class="view">
+      <div class="card">
+        <h2>Cadastro de Prescritor (CRMV)</h2>
+        <p class="lead">Cadastre-se para utilizar o convênio. Esta é uma simulação em ambiente DEMO.</p>
+        <div class="status" id="cadastroStatus"></div>
+        <form id="cadastroForm" autocomplete="off">
+          <div>
+            <label for="cadNome">Nome completo</label>
+            <input type="text" id="cadNome" required placeholder="Dra. Ana Souza" />
           </div>
+          <div>
+            <label for="cadEmail">E-mail</label>
+            <input type="email" id="cadEmail" required placeholder="nome@clinica.com" />
+          </div>
+          <div class="grid-two">
+            <div>
+              <label for="cadCrmv">CRMV</label>
+              <input type="text" id="cadCrmv" required placeholder="UF-00000" />
+            </div>
+            <div>
+              <label for="cadUf">UF</label>
+              <select id="cadUf" required>
+                <option value="">Selecione</option>
+                <option value="SP">SP</option>
+                <option value="RJ">RJ</option>
+                <option value="MG">MG</option>
+                <option value="RS">RS</option>
+                <option value="PR">PR</option>
+                <option value="SC">SC</option>
+                <option value="BA">BA</option>
+                <option value="PE">PE</option>
+                <option value="ES">ES</option>
+                <option value="DF">DF</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label for="cadSenha">Senha</label>
+            <input type="password" id="cadSenha" required minlength="4" placeholder="Mínimo 4 caracteres" />
+          </div>
+          <div class="actions">
+            <button type="button" id="btnVerificarCrmv" class="btn-secondary">Verificar CRMV (DEMO)</button>
+            <span id="crmvStatus" class="status"></span>
+          </div>
+          <button type="submit" class="btn-primary">Salvar cadastro</button>
+        </form>
+      </div>
+    </section>
 
-          <div class="card" id="testCard">
-            <h3>Teste Sheets</h3>
-            <p class="muted">Clique para escrever <strong>"deu certo"</strong> na aba <strong>FUNCIONARIOS</strong> da planilha.</p>
-            <button id="btnTestWrite" type="button">Testar escrita</button>
-            <pre id="testOut"></pre>
+    <section id="view-pacientes" class="view">
+      <div class="card">
+        <h2>Pacientes &amp; Histórico Clínico (DEMO)</h2>
+        <p class="lead">Organize pacientes, registre peso e acompanhe anotações clínicas de forma simulada.</p>
+        <div id="pacientesGuard" class="guard-box" style="display:none;">Faça login para gerenciar pacientes.</div>
+        <div class="pacientes-grid" id="pacientesArea">
+          <div>
+            <h3>Lista de pacientes</h3>
+            <ul class="list" id="patientList"></ul>
           </div>
-        </section>
+          <div>
+            <div class="card" style="margin:0;">
+              <h3 id="patientFormTitle">Adicionar paciente</h3>
+              <form id="patientForm">
+                <input type="hidden" id="patientId" />
+                <div>
+                  <label for="patientNome">Nome do paciente</label>
+                  <input type="text" id="patientNome" required />
+                </div>
+                <div class="grid-two">
+                  <div>
+                    <label for="patientEspecie">Espécie</label>
+                    <select id="patientEspecie" required>
+                      <option value="">Selecione</option>
+                      <option value="Cão">Cão</option>
+                      <option value="Gato">Gato</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="patientPeso">Peso (kg)</label>
+                    <input type="number" id="patientPeso" min="0" step="0.1" placeholder="0.0" />
+                  </div>
+                </div>
+                <div>
+                  <label for="patientNotas">Notas gerais</label>
+                  <textarea id="patientNotas" placeholder="Principais condições, alertas, medicamentos em uso..."></textarea>
+                </div>
+                <div class="actions">
+                  <button type="submit" class="btn-primary">Salvar paciente</button>
+                  <button type="button" id="patientCancel" class="btn-secondary">Cancelar</button>
+                </div>
+              </form>
+            </div>
+            <div class="card" style="margin-top:1rem;" id="patientHistoryCard">
+              <h3>Histórico selecionado</h3>
+              <div id="patientHistory"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <section class="route hidden" data-route="beneficios">
-          <div class="card">
-            <h2>Benefícios do convênio</h2>
-            <ul class="feature-grid">
-              <li><strong>Descontos exclusivos</strong> em procedimentos veterinários nas clínicas parceiras.</li>
-              <li><strong>Rede credenciada</strong> com contatos atualizados para facilitar o agendamento.</li>
-              <li><strong>Suporte dedicado</strong> para dúvidas sobre elegibilidade e regras de uso.</li>
-            </ul>
+    <section id="view-ativos" class="view">
+      <div class="card">
+        <h2>Ativos &amp; Prescrição (DEMO)</h2>
+        <p class="lead">Pesquise ativos, calcule a faixa de dose e gere prescrições simuladas.</p>
+        <div id="ativosGuard" class="guard-box" style="display:none;">Faça login para gerar prescrições.</div>
+        <div class="ativos-layout" id="ativosArea">
+          <div>
+            <div class="card" style="margin:0;">
+              <h3>Buscar ativos</h3>
+              <div class="filters">
+                <input type="text" id="ativoBusca" placeholder="Buscar por nome ou fármaco" />
+                <div class="grid-two">
+                  <select id="filtroEspecie">
+                    <option value="">Todas as espécies</option>
+                    <option value="Cão">Cão</option>
+                    <option value="Gato">Gato</option>
+                  </select>
+                  <select id="filtroCategoria">
+                    <option value="">Todas as categorias</option>
+                  </select>
+                </div>
+              </div>
+              <div id="ativosList" class="list" style="margin-top:1rem;"></div>
+            </div>
           </div>
-        </section>
+          <div>
+            <div class="ativo-detail" id="ativoDetail">
+              <p class="empty">Selecione um ativo para visualizar detalhes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <section class="route hidden" data-route="documentos">
-          <div class="card">
-            <h2>Documentos e orientações</h2>
-            <p class="muted">Em breve você encontrará aqui modelos de termos, formulários e materiais para download.</p>
-            <p class="muted">Enquanto isso, mantenha seus dados atualizados para agilizar o acesso.</p>
+    <section id="view-compra" class="view">
+      <div class="card">
+        <h2>Envio de orçamento (DEMO)</h2>
+        <p class="lead">Simule o envio de um pedido de compra ou manipulado para a Biovetfarma.</p>
+        <div id="compraGuard" class="guard-box" style="display:none;">Faça login para enviar orçamentos.</div>
+        <div id="compraArea">
+          <form id="orcamentoForm">
+            <div>
+              <label for="orcItem">Item / Produto</label>
+              <input type="text" id="orcItem" required />
+            </div>
+            <div class="grid-two">
+              <div>
+                <label for="orcQtd">Quantidade</label>
+                <input type="number" id="orcQtd" required min="1" step="1" />
+              </div>
+              <div>
+                <label for="orcValor">Valor estimado (R$)</label>
+                <input type="number" id="orcValor" required min="0" step="0.01" />
+              </div>
+            </div>
+            <div>
+              <label for="orcJustificativa">Justificativa / Observações</label>
+              <textarea id="orcJustificativa" placeholder="Descreva a necessidade clínica, prazo, instruções..."></textarea>
+            </div>
+            <div>
+              <label for="orcFarmacia">Clínica / Farmácia</label>
+              <input type="text" id="orcFarmacia" placeholder="Clínica Veterinária Exemplo" />
+            </div>
+            <div>
+              <label for="orcAnexo">Anexo (opcional, DEMO)</label>
+              <input type="file" id="orcAnexo" />
+              <span class="muted">Somente o nome do arquivo será utilizado nesta simulação.</span>
+            </div>
+            <button type="submit" class="btn-primary">Enviar orçamento (DEMO)</button>
+          </form>
+          <div class="card" style="margin-top:1.5rem;">
+            <h3>Últimos envios</h3>
+            <div id="orcamentosRecentes" class="recent-list"></div>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-historico" class="view">
+      <div class="card">
+        <h2>Histórico de compras (DEMO)</h2>
+        <p class="lead">Visualize todos os orçamentos enviados e atualize o status de forma simulada.</p>
+        <div id="historicoGuard" class="guard-box" style="display:none;">Faça login para consultar o histórico.</div>
+        <div id="historicoArea">
+          <div class="filters">
+            <input type="text" id="histBusca" placeholder="Buscar por item ou farmácia" />
+            <div class="grid-two">
+              <div>
+                <label for="histStatus" class="muted">Status</label>
+                <select id="histStatus">
+                  <option value="">Todos</option>
+                  <option value="PENDENTE">Pendente</option>
+                  <option value="AUTORIZADO">Autorizado</option>
+                  <option value="NEGADO">Negado</option>
+                </select>
+              </div>
+              <div class="grid-two">
+                <div>
+                  <label for="histInicio" class="muted">Início</label>
+                  <input type="date" id="histInicio" />
+                </div>
+                <div>
+                  <label for="histFim" class="muted">Fim</label>
+                  <input type="date" id="histFim" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Item</th>
+                  <th>Valor</th>
+                  <th>Farmácia</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="historicoTable"></tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <button type="button" id="histPrev" class="btn-secondary">Anterior</button>
+            <span id="histPagina"></span>
+            <button type="button" id="histNext" class="btn-secondary">Próxima</button>
+          </div>
+          <div class="totalizador" id="histTotal"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-config" class="view">
+      <div class="card">
+        <h2>Configurações &amp; Dados (DEMO)</h2>
+        <p class="lead">Gerencie seus dados locais: exporte, importe ou reinicie a experiência DEMO.</p>
+        <div id="configGuard" class="guard-box" style="display:none;">Faça login para acessar as configurações.</div>
+        <div id="configArea">
+          <div id="configUserInfo" class="status"></div>
+          <div class="actions" style="margin:1rem 0; flex-wrap:wrap;">
+            <button type="button" id="btnExportar" class="btn-secondary">Exportar dados (JSON)</button>
+            <label class="btn-secondary" style="cursor:pointer;">
+              Importar dados (JSON)
+              <input type="file" id="importInput" accept="application/json" style="display:none;" />
+            </label>
+            <button type="button" id="btnReset" class="btn-danger">Reset DEMO</button>
+          </div>
+          <div class="status muted">Os dados são armazenados apenas no seu dispositivo, utilizando localStorage.</div>
+        </div>
       </div>
     </section>
   </main>
 
-  <dialog id="signupModal" class="modal">
-    <div class="modal-content">
-      <h2>Cadastro de profissional</h2>
-      <p class="muted">Preencha os dados abaixo para liberar o acesso ao convênio.</p>
-      <div id="su_msg" class="form-msg"></div>
-      <label class="field" for="su_nome">
-        <span>Nome completo</span>
-        <input id="su_nome" type="text" autocomplete="name" placeholder="Nome e sobrenome" required />
-      </label>
-      <label class="field" for="su_prime">
-        <span>ID Prime (opcional)</span>
-        <input id="su_prime" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Somente números" />
-      </label>
-      <label class="field" for="su_email">
-        <span>E-mail</span>
-        <input id="su_email" type="email" autocomplete="email" placeholder="profissional@exemplo.com" required />
-      </label>
-      <label class="field" for="su_senha">
-        <span>Senha</span>
-        <input id="su_senha" type="password" autocomplete="new-password" required />
-      </label>
-      <label class="field" for="su_conf">
-        <span>Confirme a senha</span>
-        <input id="su_conf" type="password" autocomplete="new-password" required />
-      </label>
-      <div class="modal-actions">
-        <button id="btnCloseSignup" class="text-btn" type="button">Cancelar</button>
-        <button id="btnDoSignup" type="button">Criar conta</button>
-      </div>
-    </div>
-  </dialog>
+  <div class="toast-container" id="toastContainer"></div>
 
-  <script type="module" src="./firebase-init.js?v=10"></script>
-  <script type="module" src="./app.js?v=10"></script>
-  <script type="module" src="./auth.js?v=10"></script>
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <header>
+        <h3 id="modalTitle"></h3>
+        <button type="button" id="modalClose" aria-label="Fechar">✕</button>
+      </header>
+      <div id="modalBody"></div>
+      <footer>
+        <button type="button" id="modalOk" class="btn-primary">Fechar</button>
+      </footer>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    Convênio Biovetfarma &mdash; Ambiente de demonstração PWA totalmente offline (dados locais).
+  </footer>
+
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=10'));
-    }
+    (function () {
+      'use strict';
+
+      const STORAGE_KEYS = {
+        session: 'biovet_convenio_session',
+        users: 'biovet_convenio_users',
+        pacientes: 'biovet_convenio_pacientes',
+        historicos: 'biovet_convenio_historicos',
+        orcamentos: 'biovet_convenio_orcamentos',
+        envios: 'biovet_convenio_envios'
+      };
+
+      const CRMV_VALIDOS = [
+        { crmv: 'SP-12345', uf: 'SP', nome: 'Dra. Ana' },
+        { crmv: 'RJ-98765', uf: 'RJ', nome: 'Dr. Carlos' }
+      ];
+
+      const ATIVOS = [
+        {
+          id: 'ativo-silimarina',
+          nomeComum: 'Cardo Mariano',
+          nomeFarmaco: 'Silimarina',
+          categoria: 'Fitoterápico',
+          especiesIndicadas: ['Cão', 'Gato'],
+          doseMinMgKg: 20,
+          doseMaxMgKg: 50,
+          anotacoes: 'DEMO: Silimarina auxilia na função hepática. Avaliar possível sensibilidade e ajustar conforme orientação profissional.'
+        },
+        {
+          id: 'ativo-omega3',
+          nomeComum: 'Ômega-3 EPA/DHA',
+          nomeFarmaco: 'Ômega-3',
+          categoria: 'Suplemento',
+          especiesIndicadas: ['Cão', 'Gato'],
+          doseMinMgKg: 50,
+          doseMaxMgKg: 100,
+          anotacoes: 'DEMO: Suplemento de ácidos graxos essenciais para suporte dermatológico e inflamatório. Ajustar conforme formulação.'
+        },
+        {
+          id: 'ativo-itraconazol',
+          nomeComum: 'Itraconazol',
+          nomeFarmaco: 'Itraconazol',
+          categoria: 'Antifúngico',
+          especiesIndicadas: ['Cão', 'Gato'],
+          doseMinMgKg: 5,
+          doseMaxMgKg: 10,
+          anotacoes: 'DEMO: Antifúngico sistêmico. Uso apenas sob orientação veterinária especializada.'
+        },
+        {
+          id: 'ativo-clorexidina',
+          nomeComum: 'Clorexidina 4%',
+          nomeFarmaco: 'Digluconato de Clorexidina',
+          categoria: 'Antisséptico tópico',
+          especiesIndicadas: ['Cão', 'Gato'],
+          doseMinMgKg: 0,
+          doseMaxMgKg: 0,
+          anotacoes: 'DEMO: Uso tópico para higienização. Não ingerir. Aplicar conforme orientação profissional.'
+        },
+        {
+          id: 'ativo-cetoconazol-topico',
+          nomeComum: 'Cetoconazol (tópico)',
+          nomeFarmaco: 'Cetoconazol',
+          categoria: 'Antifúngico tópico',
+          especiesIndicadas: ['Cão', 'Gato'],
+          doseMinMgKg: 0,
+          doseMaxMgKg: 0,
+          anotacoes: 'DEMO: Aplicação tópica. Manter monitoramento da pele e suspender se houver irritação.'
+        },
+        {
+          id: 'ativo-ciclosporina',
+          nomeComum: 'Ciclosporina',
+          nomeFarmaco: 'Ciclosporina',
+          categoria: 'Imunomodulador',
+          especiesIndicadas: ['Cão', 'Gato'],
+          doseMinMgKg: 5,
+          doseMaxMgKg: 7,
+          anotacoes: 'DEMO: Uso para dermatites atópicas e condições imunomediadas. Avaliar interações medicamentosas.'
+        },
+        {
+          id: 'ativo-pimobendan',
+          nomeComum: 'Pimobendan',
+          nomeFarmaco: 'Pimobendan',
+          categoria: 'Cardiológico',
+          especiesIndicadas: ['Cão'],
+          doseMinMgKg: 0.2,
+          doseMaxMgKg: 0.6,
+          anotacoes: 'DEMO: Inotrópico positivo. Utilizar apenas com diagnóstico cardiológico estabelecido.'
+        },
+        {
+          id: 'ativo-benazepril',
+          nomeComum: 'Benazepril',
+          nomeFarmaco: 'Benazepril',
+          categoria: 'Cardiológico',
+          especiesIndicadas: ['Cão', 'Gato'],
+          doseMinMgKg: 0.25,
+          doseMaxMgKg: 0.5,
+          anotacoes: 'DEMO: Inibidor da ECA. Monitorar função renal e pressão arterial.'
+        },
+        {
+          id: 'ativo-sildenafila',
+          nomeComum: 'Sildenafila',
+          nomeFarmaco: 'Sildenafila',
+          categoria: 'Cardiológico',
+          especiesIndicadas: ['Cão'],
+          doseMinMgKg: 1,
+          doseMaxMgKg: 3,
+          anotacoes: 'DEMO: Utilizado em hipertensão pulmonar. Ajustar conforme resposta clínica.'
+        },
+        {
+          id: 'ativo-espironolactona',
+          nomeComum: 'Espironolactona',
+          nomeFarmaco: 'Espironolactona',
+          categoria: 'Diurético',
+          especiesIndicadas: ['Cão'],
+          doseMinMgKg: 2,
+          doseMaxMgKg: 4,
+          anotacoes: 'DEMO: Diurético poupador de potássio. Monitorar eletrólitos.'
+        }
+      ];
+
+      const PAGE_SIZE = 6;
+
+      const state = {
+        currentView: 'login',
+        currentUser: null,
+        selectedPatientId: null,
+        selectedAtivoId: null,
+        cadastroCrmvMessage: '',
+        cadastroCrmvValid: false,
+        historyPage: 1,
+        filters: {
+          historicoBusca: '',
+          historicoStatus: '',
+          historicoInicio: '',
+          historicoFim: ''
+        },
+        prescriptionUrl: null,
+        generatedPrescription: null
+      };
+
+      const fakeApi = {
+        enviarReceita(payload) {
+          if (!state.currentUser) {
+            addToast('Faça login para enviar à farmácia.', 'error');
+            return;
+          }
+          console.log('fakeApi.enviarReceita', payload);
+          addToast('Enviado à farmácia (DEMO).', 'success');
+          const email = state.currentUser.email;
+          const enviosMap = readStore(STORAGE_KEYS.envios, {});
+          const registro = {
+            id: `env-${Date.now()}`,
+            timestamp: new Date().toISOString(),
+            ...payload
+          };
+          if (!enviosMap[email]) enviosMap[email] = [];
+          enviosMap[email].push(registro);
+          writeStore(STORAGE_KEYS.envios, enviosMap);
+        },
+        notificarAdm(orcamento) {
+          console.log('fakeApi.notificarAdm', orcamento);
+          addToast('Notificação enviada ao adm (DEMO).', 'success');
+        }
+      };
+
+      function init() {
+        registerManifest();
+        registerServiceWorker();
+        bindNavigation();
+        bindForms();
+        loadSession();
+        refreshUI();
+      }
+
+      function registerManifest() {
+        const manifest = {
+          name: 'Convênio Biovetfarma DEMO',
+          short_name: 'Biovet DEMO',
+          start_url: '.',
+          display: 'standalone',
+          background_color: '#f7fafa',
+          theme_color: '#0a7f7f',
+          description: 'PWA demonstrativo do Convênio Biovetfarma com dados locais.',
+          icons: [
+            {
+              src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="28" fill="%230a7f7f"/><path fill="%23f2b705" d="M32 86c8 6 20 12 32 12s24-6 32-12l-10-14c-7 5-16 8-22 8s-15-3-22-8z"/><circle cx="48" cy="54" r="10" fill="white"/><circle cx="80" cy="54" r="10" fill="white"/></svg>',
+              sizes: '128x128',
+              type: 'image/svg+xml'
+            }
+          ]
+        };
+        const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = url;
+        document.head.appendChild(link);
+      }
+
+      function registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+          const swCode = `const CACHE = 'biovet-demo-v1';
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(['./'])));
+});
+self.addEventListener('activate', event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))));
+});
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(resp => resp || fetch(event.request).catch(() => caches.match('./')))
+  );
+});`;
+          const blob = new Blob([swCode], { type: 'application/javascript' });
+          const swUrl = URL.createObjectURL(blob);
+          navigator.serviceWorker.register(swUrl).catch(() => {
+            console.warn('Service worker não registrado.');
+          });
+        }
+      }
+
+      function bindNavigation() {
+        document.querySelectorAll('nav button[data-view]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const view = btn.dataset.view;
+            if (!state.currentUser && !['login', 'cadastro'].includes(view)) {
+              addToast('Faça login para acessar esta área.', 'error');
+              switchView('login');
+              return;
+            }
+            switchView(view);
+          });
+        });
+
+        document.querySelectorAll('[data-target]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const target = btn.dataset.target;
+            switchView(target);
+          });
+        });
+      }
+
+      function bindForms() {
+        const loginForm = document.getElementById('loginForm');
+        const logoutBtn = document.getElementById('logoutBtn');
+        loginForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const email = loginForm.loginEmail.value.trim().toLowerCase();
+          const senha = loginForm.loginSenha.value;
+          const users = readStore(STORAGE_KEYS.users, {});
+          if (!users[email]) {
+            addToast('Usuário não encontrado.', 'error');
+            return;
+          }
+          if (users[email].senha !== senha) {
+            addToast('Senha inválida.', 'error');
+            return;
+          }
+          writeStore(STORAGE_KEYS.session, { userEmail: email });
+          addToast('Login realizado com sucesso.', 'success');
+          loginForm.reset();
+          loadSession();
+          switchView('pacientes');
+          refreshUI();
+        });
+
+        logoutBtn.addEventListener('click', () => {
+          writeStore(STORAGE_KEYS.session, { userEmail: null });
+          state.selectedPatientId = null;
+          state.selectedAtivoId = null;
+          addToast('Sessão encerrada.', 'success');
+          loadSession();
+          switchView('login');
+          refreshUI();
+        });
+
+        const cadastroForm = document.getElementById('cadastroForm');
+        const crmvButton = document.getElementById('btnVerificarCrmv');
+        crmvButton.addEventListener('click', () => {
+          const crmv = cadastroForm.cadCrmv.value.trim();
+          const uf = cadastroForm.cadUf.value.trim().toUpperCase();
+          if (!crmv || !uf) {
+            setCrmvStatus('Informe CRMV e UF para validar.', false);
+            return;
+          }
+          const match = CRMV_VALIDOS.find((item) => item.crmv.toLowerCase() === crmv.toLowerCase() && item.uf === uf);
+          if (match) {
+            setCrmvStatus(`CRMV validado (DEMO) para ${match.nome}.`, true);
+            if (!cadastroForm.cadNome.value) {
+              cadastroForm.cadNome.value = match.nome;
+            }
+          } else {
+            setCrmvStatus('CRMV não encontrado na base DEMO. Cadastro permitido com validação pendente.', false);
+          }
+        });
+
+        cadastroForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const nome = cadastroForm.cadNome.value.trim();
+          const email = cadastroForm.cadEmail.value.trim().toLowerCase();
+          const crmv = cadastroForm.cadCrmv.value.trim();
+          const uf = cadastroForm.cadUf.value.trim().toUpperCase();
+          const senha = cadastroForm.cadSenha.value;
+          const users = readStore(STORAGE_KEYS.users, {});
+          if (users[email]) {
+            setCadastroStatus('E-mail já cadastrado. Faça login ou utilize outro e-mail.', 'error');
+            return;
+          }
+          const match = CRMV_VALIDOS.find((item) => item.crmv.toLowerCase() === crmv.toLowerCase() && item.uf === uf);
+          const user = {
+            nome: nome || match?.nome || '',
+            email,
+            crmv,
+            uf,
+            senha,
+            crmvValidado: Boolean(match)
+          };
+          users[email] = user;
+          writeStore(STORAGE_KEYS.users, users);
+          writeStore(STORAGE_KEYS.session, { userEmail: email });
+          setCadastroStatus(match ? 'Cadastro concluído e CRMV validado (DEMO).' : 'Cadastro concluído. CRMV pendente de validação (DEMO).', match ? 'success' : 'error');
+          cadastroForm.reset();
+          state.cadastroCrmvMessage = '';
+          state.cadastroCrmvValid = false;
+          loadSession();
+          refreshUI();
+          switchView('pacientes');
+          addToast('Usuário cadastrado e autenticado.', 'success');
+        });
+
+        const patientForm = document.getElementById('patientForm');
+        patientForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          if (!state.currentUser) {
+            addToast('Faça login para salvar pacientes.', 'error');
+            return;
+          }
+          const id = patientForm.patientId.value || `pac-${Date.now()}`;
+          const nome = patientForm.patientNome.value.trim();
+          const especie = patientForm.patientEspecie.value;
+          const peso = parseFloat(patientForm.patientPeso.value) || 0;
+          const notas = patientForm.patientNotas.value.trim();
+          const pacientesMap = readStore(STORAGE_KEYS.pacientes, {});
+          const email = state.currentUser.email;
+          const lista = pacientesMap[email] || [];
+          const existingIndex = lista.findIndex((item) => item.id === id);
+          const paciente = { id, nome, especie, pesoKg: peso, notas };
+          if (existingIndex >= 0) {
+            lista[existingIndex] = paciente;
+            addToast('Paciente atualizado.', 'success');
+          } else {
+            lista.push(paciente);
+            addToast('Paciente cadastrado.', 'success');
+          }
+          pacientesMap[email] = lista;
+          writeStore(STORAGE_KEYS.pacientes, pacientesMap);
+          patientForm.reset();
+          state.selectedPatientId = paciente.id;
+          refreshUI();
+        });
+
+        document.getElementById('patientCancel').addEventListener('click', () => {
+          patientForm.reset();
+          patientForm.patientId.value = '';
+          document.getElementById('patientFormTitle').textContent = 'Adicionar paciente';
+        });
+
+        document.getElementById('orcamentoForm').addEventListener('submit', (event) => {
+          event.preventDefault();
+          if (!state.currentUser) {
+            addToast('Faça login para enviar orçamentos.', 'error');
+            return;
+          }
+          const form = event.currentTarget;
+          const email = state.currentUser.email;
+          const orcamentosMap = readStore(STORAGE_KEYS.orcamentos, {});
+          const lista = orcamentosMap[email] || [];
+          const id = `orc-${Date.now()}`;
+          const file = form.orcAnexo.files[0];
+          const registro = {
+            id,
+            dataISO: new Date().toISOString(),
+            item: form.orcItem.value.trim(),
+            qtd: Number(form.orcQtd.value) || 0,
+            valor: Number(form.orcValor.value) || 0,
+            justificativa: form.orcJustificativa.value.trim(),
+            farmacia: form.orcFarmacia.value.trim(),
+            anexo: file ? file.name : null,
+            status: 'PENDENTE'
+          };
+          lista.push(registro);
+          orcamentosMap[email] = lista;
+          writeStore(STORAGE_KEYS.orcamentos, orcamentosMap);
+          form.reset();
+          addToast('Orçamento enviado (DEMO).', 'success');
+          fakeApi.notificarAdm(registro);
+          refreshUI();
+        });
+
+        document.getElementById('histBusca').addEventListener('input', (event) => {
+          state.filters.historicoBusca = event.target.value.toLowerCase();
+          state.historyPage = 1;
+          renderHistorico();
+        });
+        document.getElementById('histStatus').addEventListener('change', (event) => {
+          state.filters.historicoStatus = event.target.value;
+          state.historyPage = 1;
+          renderHistorico();
+        });
+        document.getElementById('histInicio').addEventListener('change', (event) => {
+          state.filters.historicoInicio = event.target.value;
+          state.historyPage = 1;
+          renderHistorico();
+        });
+        document.getElementById('histFim').addEventListener('change', (event) => {
+          state.filters.historicoFim = event.target.value;
+          state.historyPage = 1;
+          renderHistorico();
+        });
+        document.getElementById('histPrev').addEventListener('click', () => {
+          if (state.historyPage > 1) {
+            state.historyPage -= 1;
+            renderHistorico();
+          }
+        });
+        document.getElementById('histNext').addEventListener('click', () => {
+          state.historyPage += 1;
+          renderHistorico();
+        });
+
+        document.getElementById('btnExportar').addEventListener('click', exportarDados);
+        document.getElementById('importInput').addEventListener('change', importarDados);
+        document.getElementById('btnReset').addEventListener('click', resetDemo);
+
+        document.getElementById('modalClose').addEventListener('click', closeModal);
+        document.getElementById('modalOk').addEventListener('click', closeModal);
+
+        document.getElementById('ativoBusca').addEventListener('input', renderAtivos);
+        document.getElementById('filtroEspecie').addEventListener('change', renderAtivos);
+        document.getElementById('filtroCategoria').addEventListener('change', renderAtivos);
+      }
+
+      function setCrmvStatus(message, valid) {
+        state.cadastroCrmvMessage = message;
+        state.cadastroCrmvValid = Boolean(valid);
+        const el = document.getElementById('crmvStatus');
+        el.textContent = message;
+        el.className = `status ${valid ? 'success' : 'error'}`;
+      }
+
+      function setCadastroStatus(message, type) {
+        const el = document.getElementById('cadastroStatus');
+        el.textContent = message;
+        el.className = `status ${type}`;
+        if (!message) {
+          el.className = 'status';
+        }
+      }
+
+      function loadSession() {
+        const session = readStore(STORAGE_KEYS.session, { userEmail: null });
+        const users = readStore(STORAGE_KEYS.users, {});
+        const userEmail = session?.userEmail || null;
+        state.currentUser = userEmail ? users[userEmail] || null : null;
+        if (!state.currentUser) {
+          writeStore(STORAGE_KEYS.session, { userEmail: null });
+        }
+      }
+
+      function refreshUI() {
+        updateNavState();
+        renderLogin();
+        renderCadastro();
+        renderPacientes();
+        renderAtivos();
+        renderCompra();
+        renderHistorico();
+        renderConfig();
+        enforceViewGuard();
+      }
+
+      function renderLogin() {
+        const statusEl = document.getElementById('loginStatus');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginForm = document.getElementById('loginForm');
+        if (state.currentUser) {
+          statusEl.textContent = `Logado como ${state.currentUser.nome || state.currentUser.email}.`;
+          statusEl.classList.add('success');
+          logoutBtn.disabled = false;
+          setFormDisabled(loginForm, true);
+        } else {
+          statusEl.textContent = 'Não autenticado.';
+          statusEl.classList.remove('success');
+          logoutBtn.disabled = true;
+          setFormDisabled(loginForm, false);
+        }
+      }
+
+      function renderCadastro() {
+        const cadastroForm = document.getElementById('cadastroForm');
+        if (state.currentUser) {
+          cadastroForm.cadEmail.value = state.currentUser.email;
+          cadastroForm.cadEmail.setAttribute('readonly', 'readonly');
+        } else {
+          cadastroForm.cadEmail.removeAttribute('readonly');
+        }
+        setCadastroStatus('', '');
+        if (state.cadastroCrmvMessage) {
+          setCrmvStatus(state.cadastroCrmvMessage, state.cadastroCrmvValid);
+        } else {
+          document.getElementById('crmvStatus').textContent = '';
+        }
+      }
+
+      function renderPacientes() {
+        const guard = document.getElementById('pacientesGuard');
+        const area = document.getElementById('pacientesArea');
+        const listEl = document.getElementById('patientList');
+        const historyEl = document.getElementById('patientHistory');
+        const historyCard = document.getElementById('patientHistoryCard');
+        const pacientesMap = readStore(STORAGE_KEYS.pacientes, {});
+        const historicosMap = readStore(STORAGE_KEYS.historicos, {});
+        if (!state.currentUser) {
+          guard.style.display = 'block';
+          area.style.display = 'none';
+          historyCard.style.display = 'none';
+          return;
+        }
+        guard.style.display = 'none';
+        area.style.display = '';
+        historyCard.style.display = '';
+        const email = state.currentUser.email;
+        const pacientes = pacientesMap[email] || [];
+        if (!pacientes.length) {
+          listEl.innerHTML = '<li class="empty">Nenhum paciente cadastrado.</li>';
+        } else {
+          listEl.innerHTML = pacientes
+            .map((paciente) => {
+              const ativo = paciente.id === state.selectedPatientId ? 'active' : '';
+              return `<li class="list-item ${ativo}" data-id="${paciente.id}">
+                <div class="list-item-title">${escapeHtml(paciente.nome)}</div>
+                <div class="muted">${paciente.especie || 'Espécie não definida'} • ${paciente.pesoKg ? `${paciente.pesoKg.toFixed(1)} kg` : 'Peso não informado'}</div>
+                <div class="actions">
+                  <button type="button" class="btn-secondary" data-action="selecionar" data-id="${paciente.id}">Ver histórico</button>
+                  <button type="button" class="btn-secondary" data-action="editar" data-id="${paciente.id}">Editar</button>
+                  <button type="button" class="btn-danger" data-action="excluir" data-id="${paciente.id}">Excluir</button>
+                </div>
+              </li>`;
+            })
+            .join('');
+        }
+
+        listEl.querySelectorAll('button').forEach((btn) => {
+          btn.addEventListener('click', (event) => {
+            const id = event.currentTarget.dataset.id;
+            const action = event.currentTarget.dataset.action;
+            const pacientesAtual = (pacientesMap[email] || []);
+            const paciente = pacientesAtual.find((item) => item.id === id);
+            if (!paciente) return;
+            if (action === 'selecionar') {
+              state.selectedPatientId = id;
+              renderPacientes();
+              renderAtivos();
+            }
+            if (action === 'editar') {
+              document.getElementById('patientFormTitle').textContent = 'Editar paciente';
+              const form = document.getElementById('patientForm');
+              form.patientId.value = paciente.id;
+              form.patientNome.value = paciente.nome;
+              form.patientEspecie.value = paciente.especie;
+              form.patientPeso.value = paciente.pesoKg || '';
+              form.patientNotas.value = paciente.notas || '';
+            }
+            if (action === 'excluir') {
+              if (confirm('Deseja remover este paciente?')) {
+                const novos = pacientesAtual.filter((item) => item.id !== id);
+                pacientesMap[email] = novos;
+                writeStore(STORAGE_KEYS.pacientes, pacientesMap);
+                delete historicosMap[id];
+                writeStore(STORAGE_KEYS.historicos, historicosMap);
+                if (state.selectedPatientId === id) {
+                  state.selectedPatientId = null;
+                }
+                addToast('Paciente removido.', 'success');
+                renderPacientes();
+                renderAtivos();
+              }
+            }
+          });
+        });
+
+        if (state.selectedPatientId) {
+          const paciente = pacientes.find((item) => item.id === state.selectedPatientId);
+          if (paciente) {
+            const log = historicosMap[paciente.id] || [];
+            historyEl.innerHTML = `
+              <div>
+                <strong>${escapeHtml(paciente.nome)}</strong>
+                <div class="muted">${paciente.especie || ''} • ${paciente.pesoKg ? paciente.pesoKg.toFixed(1) + ' kg' : 'Peso não informado'}</div>
+                <p>${paciente.notas ? escapeHtml(paciente.notas) : '<span class="muted">Sem notas gerais.</span>'}</p>
+              </div>
+              <form id="historyForm" style="margin-top:1rem;">
+                <label for="historyTexto">Nova entrada de histórico</label>
+                <textarea id="historyTexto" placeholder="Ex.: Avaliação dermatológica, resultado de exames, orientações..." required></textarea>
+                <button type="submit" class="btn-primary">Adicionar anotação</button>
+              </form>
+              <div class="history-log" id="historyLog"></div>`;
+            const historyForm = document.getElementById('historyForm');
+            historyForm.addEventListener('submit', (event) => {
+              event.preventDefault();
+              const texto = historyForm.historyTexto.value.trim();
+              if (!texto) return;
+              const historicos = readStore(STORAGE_KEYS.historicos, {});
+              const registros = historicos[paciente.id] || [];
+              registros.unshift({ id: `hist-${Date.now()}`, texto, dataISO: new Date().toISOString() });
+              historicos[paciente.id] = registros;
+              writeStore(STORAGE_KEYS.historicos, historicos);
+              historyForm.reset();
+              addToast('Histórico atualizado.', 'success');
+              renderPacientes();
+            });
+            const logEl = document.getElementById('historyLog');
+            if (!log.length) {
+              logEl.innerHTML = '<div class="empty">Sem entradas registradas.</div>';
+            } else {
+              logEl.innerHTML = log
+                .map((item) => `<div class="history-entry"><time>${formatDateTime(item.dataISO)}</time>${escapeHtml(item.texto)}</div>`)
+                .join('');
+            }
+          } else {
+            historyEl.innerHTML = '<div class="empty">Selecione um paciente para visualizar o histórico.</div>';
+          }
+        } else {
+          historyEl.innerHTML = '<div class="empty">Selecione um paciente para visualizar o histórico.</div>';
+        }
+      }
+
+      function renderAtivos() {
+        const guard = document.getElementById('ativosGuard');
+        const area = document.getElementById('ativosArea');
+        if (!state.currentUser) {
+          guard.style.display = 'block';
+          area.style.display = 'none';
+          return;
+        }
+        guard.style.display = 'none';
+        area.style.display = '';
+        const busca = document.getElementById('ativoBusca').value.toLowerCase();
+        const especie = document.getElementById('filtroEspecie').value;
+        const categoriaSelect = document.getElementById('filtroCategoria');
+        if (!categoriaSelect.dataset.ready) {
+          const categorias = Array.from(new Set(ATIVOS.map((item) => item.categoria))).sort();
+          categorias.forEach((cat) => {
+            const option = document.createElement('option');
+            option.value = cat;
+            option.textContent = cat;
+            categoriaSelect.appendChild(option);
+          });
+          categoriaSelect.dataset.ready = 'true';
+        }
+        const categoria = categoriaSelect.value;
+        const pacientes = getPacientesAtual();
+        const listEl = document.getElementById('ativosList');
+        const filtrados = ATIVOS.filter((ativo) => {
+          const matchBusca = !busca || `${ativo.nomeComum} ${ativo.nomeFarmaco} ${ativo.categoria}`.toLowerCase().includes(busca);
+          const matchEspecie = !especie || ativo.especiesIndicadas.includes(especie);
+          const matchCategoria = !categoria || ativo.categoria === categoria;
+          return matchBusca && matchEspecie && matchCategoria;
+        });
+        if (!filtrados.length) {
+          listEl.innerHTML = '<div class="empty">Nenhum ativo encontrado.</div>';
+        } else {
+          listEl.innerHTML = filtrados
+            .map((ativo) => {
+              const activeClass = ativo.id === state.selectedAtivoId ? 'active' : '';
+              return `<div class="ativo-card ${activeClass}" data-id="${ativo.id}">
+                <h4>${escapeHtml(ativo.nomeComum)}</h4>
+                <small>${escapeHtml(ativo.nomeFarmaco)} • ${escapeHtml(ativo.categoria)}</small>
+                <div class="chip-group">${ativo.especiesIndicadas.map((esp) => `<span class="chip">${esp}</span>`).join('')}</div>
+              </div>`;
+            })
+            .join('');
+        }
+        listEl.querySelectorAll('.ativo-card').forEach((card) => {
+          card.addEventListener('click', () => {
+            state.selectedAtivoId = card.dataset.id;
+            renderAtivos();
+          });
+        });
+
+        const detailEl = document.getElementById('ativoDetail');
+        if (!state.selectedAtivoId) {
+          detailEl.innerHTML = '<p class="empty">Selecione um ativo para visualizar detalhes.</p>';
+          return;
+        }
+        const ativo = ATIVOS.find((item) => item.id === state.selectedAtivoId);
+        if (!ativo) {
+          detailEl.innerHTML = '<p class="empty">Ativo não encontrado.</p>';
+          return;
+        }
+        const pacientesOptions = pacientes
+          .map((paciente) => `<option value="${paciente.id}">${escapeHtml(paciente.nome)} (${paciente.pesoKg ? paciente.pesoKg.toFixed(1) + ' kg' : 'peso ?'})</option>`)
+          .join('');
+        const pesoPaciente = pacientes.find((p) => p.id === state.selectedPatientId)?.pesoKg || '';
+        detailEl.innerHTML = `
+          <h3>${escapeHtml(ativo.nomeComum)}</h3>
+          <div class="muted">${escapeHtml(ativo.nomeFarmaco)} • ${escapeHtml(ativo.categoria)}</div>
+          <div class="chip-group">${ativo.especiesIndicadas.map((esp) => `<span class="chip">${esp}</span>`).join('')}</div>
+          <p>${escapeHtml(ativo.anotacoes)}</p>
+          <div class="dose-box">
+            <label for="pesoPrescricao">Peso do paciente (kg)</label>
+            <input type="number" id="pesoPrescricao" min="0" step="0.1" value="${pesoPaciente}" />
+            <div class="muted">Intervalo de dose: ${ativo.doseMinMgKg} - ${ativo.doseMaxMgKg} mg/kg</div>
+            <div class="dose-values" id="doseValores">Informe o peso para calcular.</div>
+          </div>
+          <label for="pacientePrescricao">Paciente</label>
+          <select id="pacientePrescricao">
+            <option value="">Selecione</option>
+            ${pacientesOptions}
+          </select>
+          <label for="observacoesPrescricao">Observações adicionais (DEMO)</label>
+          <textarea id="observacoesPrescricao" placeholder="Orientações complementares, modo de uso, intervalo..."></textarea>
+          <div class="actions">
+            <button type="button" id="btnGerarPrescricao" class="btn-primary">Gerar Prescrição (DEMO)</button>
+            <button type="button" id="btnEnviarFarmacia" class="btn-secondary">Enviar à farmácia (DEMO)</button>
+          </div>
+          <div id="prescricaoResultado" class="muted"></div>
+        `;
+        const pesoInput = document.getElementById('pesoPrescricao');
+        const doseValores = document.getElementById('doseValores');
+        const pacienteSelect = document.getElementById('pacientePrescricao');
+        if (state.selectedPatientId) {
+          pacienteSelect.value = state.selectedPatientId;
+        }
+        pesoInput.addEventListener('input', () => atualizarDose(ativo, pesoInput, doseValores));
+        atualizarDose(ativo, pesoInput, doseValores);
+        pacienteSelect.addEventListener('change', () => {
+          const pacienteId = pacienteSelect.value;
+          state.selectedPatientId = pacienteId || null;
+          if (pacienteId) {
+            const paciente = pacientes.find((p) => p.id === pacienteId);
+            if (paciente && paciente.pesoKg) {
+              pesoInput.value = paciente.pesoKg;
+              atualizarDose(ativo, pesoInput, doseValores);
+            }
+          }
+        });
+        document.getElementById('btnGerarPrescricao').addEventListener('click', () => gerarPrescricao(ativo));
+        document.getElementById('btnEnviarFarmacia').addEventListener('click', () => enviarFarmacia(ativo));
+      }
+
+      function atualizarDose(ativo, pesoInput, doseValores) {
+        const peso = parseFloat(pesoInput.value);
+        if (!peso) {
+          doseValores.textContent = 'Informe o peso para calcular.';
+          return;
+        }
+        const min = (peso * ativo.doseMinMgKg).toFixed(2);
+        const max = (peso * ativo.doseMaxMgKg).toFixed(2);
+        doseValores.textContent = `Faixa estimada: ${min} mg até ${max} mg (DEMO).`;
+      }
+
+      function gerarPrescricao(ativo) {
+        if (!state.currentUser) {
+          addToast('Faça login para gerar prescrições.', 'error');
+          return;
+        }
+        const peso = parseFloat(document.getElementById('pesoPrescricao').value);
+        const pacienteId = document.getElementById('pacientePrescricao').value;
+        const observacoes = document.getElementById('observacoesPrescricao').value.trim();
+        if (!peso) {
+          addToast('Informe o peso do paciente.', 'error');
+          return;
+        }
+        const paciente = getPacientesAtual().find((p) => p.id === pacienteId) || null;
+        const min = (peso * ativo.doseMinMgKg).toFixed(2);
+        const max = (peso * ativo.doseMaxMgKg).toFixed(2);
+        const documento = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8" /><title>Prescrição DEMO</title><style>body{font-family:Arial,Helvetica,sans-serif;padding:24px;background:#f7fafa;color:#0f1e1e;}h1{color:#0a7f7f;}section{margin-bottom:16px;}strong{color:#075e5e;}</style></head><body><h1>Prescrição Veterinária (DEMO)</h1><section><strong>Prescritor:</strong> ${escapeHtml(state.currentUser.nome || state.currentUser.email)}<br/><strong>Email:</strong> ${escapeHtml(state.currentUser.email)}<br/><strong>CRMV:</strong> ${escapeHtml(state.currentUser.crmv)} - ${escapeHtml(state.currentUser.uf)}${state.currentUser.crmvValidado ? ' (validado DEMO)' : ' (validação pendente DEMO)'}</section><section><strong>Paciente:</strong> ${paciente ? escapeHtml(paciente.nome) : 'Não informado'}${paciente ? ` (${escapeHtml(paciente.especie)} - ${paciente.pesoKg ? paciente.pesoKg.toFixed(1) + ' kg' : 'peso não informado'})` : ''}</section><section><strong>Ativo:</strong> ${escapeHtml(ativo.nomeComum)} (${escapeHtml(ativo.nomeFarmaco)})<br/><strong>Categoria:</strong> ${escapeHtml(ativo.categoria)}<br/><strong>Dose sugerida (DEMO):</strong> ${min} mg a ${max} mg para ${peso.toFixed(2)} kg (${ativo.doseMinMgKg}-${ativo.doseMaxMgKg} mg/kg)</section><section><strong>Observações:</strong><br/>${escapeHtml(observacoes || 'Sem observações adicionais (DEMO).')}</section><section style="font-size:12px;color:#5a6d6d;">Documento gerado para fins demonstrativos. Não substitui orientação profissional real.</section></body></html>`;
+        if (state.prescriptionUrl) {
+          URL.revokeObjectURL(state.prescriptionUrl);
+        }
+        const blob = new Blob([documento], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        state.prescriptionUrl = url;
+        state.generatedPrescription = {
+          ativoId: ativo.id,
+          pacienteId: paciente?.id || null,
+          peso,
+          observacoes,
+          fileName: `prescricao-${ativo.id}-${Date.now()}.html`
+        };
+        const resultado = document.getElementById('prescricaoResultado');
+        resultado.innerHTML = `<div class="actions" style="margin-top:0.75rem;">
+          <a href="${url}" download="${state.generatedPrescription.fileName}" class="btn-secondary">Baixar prescrição (DEMO)</a>
+        </div>`;
+        addToast('Prescrição gerada (DEMO).', 'success');
+      }
+
+      function enviarFarmacia(ativo) {
+        if (!state.currentUser) {
+          addToast('Faça login para enviar prescrições.', 'error');
+          return;
+        }
+        if (!state.generatedPrescription || state.generatedPrescription.ativoId !== ativo.id) {
+          addToast('Gere a prescrição antes de enviar.', 'error');
+          return;
+        }
+        const paciente = getPacientesAtual().find((p) => p.id === state.generatedPrescription.pacienteId) || null;
+        const payload = {
+          prescritor: {
+            nome: state.currentUser.nome,
+            email: state.currentUser.email,
+            crmv: state.currentUser.crmv,
+            uf: state.currentUser.uf
+          },
+          paciente: paciente ? {
+            id: paciente.id,
+            nome: paciente.nome,
+            especie: paciente.especie,
+            pesoKg: paciente.pesoKg
+          } : null,
+          ativo: {
+            id: ativo.id,
+            nome: ativo.nomeComum,
+            farmaco: ativo.nomeFarmaco,
+            categoria: ativo.categoria
+          },
+          dose: {
+            peso: state.generatedPrescription.peso,
+            faixa: `${(state.generatedPrescription.peso * ativo.doseMinMgKg).toFixed(2)} - ${(state.generatedPrescription.peso * ativo.doseMaxMgKg).toFixed(2)} mg`
+          },
+          observacoes: state.generatedPrescription.observacoes
+        };
+        fakeApi.enviarReceita(payload);
+      }
+
+      function renderCompra() {
+        const guard = document.getElementById('compraGuard');
+        const area = document.getElementById('compraArea');
+        const recentesEl = document.getElementById('orcamentosRecentes');
+        if (!state.currentUser) {
+          guard.style.display = 'block';
+          area.style.display = 'none';
+          return;
+        }
+        guard.style.display = 'none';
+        area.style.display = '';
+        const email = state.currentUser.email;
+        const orcamentosMap = readStore(STORAGE_KEYS.orcamentos, {});
+        const lista = (orcamentosMap[email] || []).slice().sort((a, b) => new Date(b.dataISO) - new Date(a.dataISO));
+        if (!lista.length) {
+          recentesEl.innerHTML = '<div class="empty">Nenhum orçamento enviado.</div>';
+        } else {
+          recentesEl.innerHTML = lista
+            .slice(0, 5)
+            .map((item) => `<div class="list-item"><div class="list-item-title">${escapeHtml(item.item)} • ${item.qtd} un</div><div class="muted">${formatDateTime(item.dataISO)} &mdash; ${item.status}</div><div class="muted">${item.farmacia ? escapeHtml(item.farmacia) : 'Sem farmácia informada'}</div></div>`)
+            .join('');
+        }
+      }
+
+      function renderHistorico() {
+        const guard = document.getElementById('historicoGuard');
+        const area = document.getElementById('historicoArea');
+        if (!state.currentUser) {
+          guard.style.display = 'block';
+          area.style.display = 'none';
+          return;
+        }
+        guard.style.display = 'none';
+        area.style.display = '';
+        const email = state.currentUser.email;
+        const orcamentosMap = readStore(STORAGE_KEYS.orcamentos, {});
+        const lista = (orcamentosMap[email] || []).slice().sort((a, b) => new Date(b.dataISO) - new Date(a.dataISO));
+        const filtros = state.filters;
+        const filtrados = lista.filter((item) => {
+          const matchBusca = !filtros.historicoBusca || `${item.item} ${item.farmacia}`.toLowerCase().includes(filtros.historicoBusca);
+          const matchStatus = !filtros.historicoStatus || item.status === filtros.historicoStatus;
+          const data = item.dataISO ? item.dataISO.slice(0, 10) : '';
+          const matchInicio = !filtros.historicoInicio || data >= filtros.historicoInicio;
+          const matchFim = !filtros.historicoFim || data <= filtros.historicoFim;
+          return matchBusca && matchStatus && matchInicio && matchFim;
+        });
+        const totalPaginas = Math.max(1, Math.ceil(filtrados.length / PAGE_SIZE));
+        if (state.historyPage > totalPaginas) state.historyPage = totalPaginas;
+        const inicio = (state.historyPage - 1) * PAGE_SIZE;
+        const pagina = filtrados.slice(inicio, inicio + PAGE_SIZE);
+        const tabela = document.getElementById('historicoTable');
+        if (!pagina.length) {
+          tabela.innerHTML = '<tr><td colspan="6" class="empty">Nenhum registro encontrado.</td></tr>';
+        } else {
+          tabela.innerHTML = pagina
+            .map((item) => `<tr>
+              <td>${formatDate(item.dataISO)}</td>
+              <td>${escapeHtml(item.item)}</td>
+              <td>R$ ${item.valor.toFixed(2)}</td>
+              <td>${item.farmacia ? escapeHtml(item.farmacia) : '-'}</td>
+              <td><span class="badge-status ${item.status}">${item.status}</span></td>
+              <td>
+                <div class="actions">
+                  <button type="button" class="btn-secondary" data-action="detalhes" data-id="${item.id}">Ver detalhes</button>
+                  <button type="button" class="btn-success" data-action="autorizar" data-id="${item.id}">Marcar AUTORIZADO</button>
+                  <button type="button" class="btn-danger" data-action="negar" data-id="${item.id}">Marcar NEGADO</button>
+                </div>
+              </td>
+            </tr>`)
+            .join('');
+        }
+        document.getElementById('histPagina').textContent = `Página ${state.historyPage} de ${totalPaginas}`;
+        document.getElementById('histPrev').disabled = state.historyPage <= 1;
+        document.getElementById('histNext').disabled = state.historyPage >= totalPaginas;
+        const total = filtrados.reduce((acc, item) => acc + (Number(item.valor) || 0), 0);
+        document.getElementById('histTotal').textContent = `Total listado: R$ ${total.toFixed(2)}`;
+
+        tabela.querySelectorAll('button').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const id = btn.dataset.id;
+            const action = btn.dataset.action;
+            if (action === 'detalhes') {
+              const registro = lista.find((item) => item.id === id);
+              if (registro) {
+                openModal('Detalhes do orçamento', gerarDetalhesOrcamento(registro));
+              }
+            } else {
+              atualizarStatusOrcamento(id, action === 'autorizar' ? 'AUTORIZADO' : 'NEGADO');
+            }
+          });
+        });
+      }
+
+      function gerarDetalhesOrcamento(registro) {
+        return `<div class="list-item">
+          <div class="list-item-title">${escapeHtml(registro.item)}</div>
+          <div><strong>Quantidade:</strong> ${registro.qtd}</div>
+          <div><strong>Valor estimado:</strong> R$ ${Number(registro.valor).toFixed(2)}</div>
+          <div><strong>Status:</strong> ${registro.status}</div>
+          <div><strong>Data:</strong> ${formatDateTime(registro.dataISO)}</div>
+          <div><strong>Clínica/Farmácia:</strong> ${registro.farmacia ? escapeHtml(registro.farmacia) : '-'}</div>
+          <div><strong>Justificativa:</strong><br>${registro.justificativa ? escapeHtml(registro.justificativa) : 'Não informada.'}</div>
+          <div><strong>Anexo:</strong> ${registro.anexo || 'Sem anexo (DEMO)'}</div>
+        </div>`;
+      }
+
+      function atualizarStatusOrcamento(id, status) {
+        const email = state.currentUser?.email;
+        if (!email) return;
+        const orcamentosMap = readStore(STORAGE_KEYS.orcamentos, {});
+        const lista = orcamentosMap[email] || [];
+        const item = lista.find((registro) => registro.id === id);
+        if (item) {
+          item.status = status;
+          writeStore(STORAGE_KEYS.orcamentos, orcamentosMap);
+          addToast(`Status atualizado para ${status} (DEMO).`, 'success');
+          renderHistorico();
+          renderCompra();
+        }
+      }
+
+      function renderConfig() {
+        const guard = document.getElementById('configGuard');
+        const area = document.getElementById('configArea');
+        const info = document.getElementById('configUserInfo');
+        if (!state.currentUser) {
+          guard.style.display = 'block';
+          area.style.display = 'none';
+          return;
+        }
+        guard.style.display = 'none';
+        area.style.display = '';
+        info.innerHTML = `<strong>Usuário:</strong> ${escapeHtml(state.currentUser.nome || state.currentUser.email)}<br>
+          <strong>Email:</strong> ${escapeHtml(state.currentUser.email)}<br>
+          <strong>CRMV:</strong> ${escapeHtml(state.currentUser.crmv)} - ${escapeHtml(state.currentUser.uf)}<br>
+          <strong>Status CRMV:</strong> ${state.currentUser.crmvValidado ? 'validado (DEMO)' : 'pendente (DEMO)'}`;
+      }
+
+      function enforceViewGuard() {
+        if (!state.currentUser && !['login', 'cadastro'].includes(state.currentView)) {
+          switchView('login');
+        }
+      }
+
+      function updateNavState() {
+        document.querySelectorAll('nav button[data-view]').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.view === state.currentView);
+        });
+      }
+
+      function setFormDisabled(form, disabled) {
+        Array.from(form.elements).forEach((el) => {
+          if (disabled) {
+            el.setAttribute('disabled', 'disabled');
+          } else {
+            el.removeAttribute('disabled');
+          }
+        });
+      }
+
+      function getPacientesAtual() {
+        if (!state.currentUser) return [];
+        const pacientesMap = readStore(STORAGE_KEYS.pacientes, {});
+        return pacientesMap[state.currentUser.email] || [];
+      }
+
+      function exportarDados() {
+        if (!state.currentUser) {
+          addToast('Faça login para exportar.', 'error');
+          return;
+        }
+        const dados = {
+          users: readStore(STORAGE_KEYS.users, {}),
+          pacientes: readStore(STORAGE_KEYS.pacientes, {}),
+          historicos: readStore(STORAGE_KEYS.historicos, {}),
+          orcamentos: readStore(STORAGE_KEYS.orcamentos, {}),
+          enviosFarmacia: readStore(STORAGE_KEYS.envios, {})
+        };
+        const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'biovet-convenio-demo.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+
+      function importarDados(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const dados = JSON.parse(reader.result);
+            writeStore(STORAGE_KEYS.users, dados.users || {});
+            writeStore(STORAGE_KEYS.pacientes, dados.pacientes || {});
+            writeStore(STORAGE_KEYS.historicos, dados.historicos || {});
+            writeStore(STORAGE_KEYS.orcamentos, dados.orcamentos || {});
+            writeStore(STORAGE_KEYS.envios, dados.enviosFarmacia || {});
+            addToast('Dados importados (DEMO).', 'success');
+            loadSession();
+            refreshUI();
+          } catch (error) {
+            console.error(error);
+            addToast('Arquivo inválido.', 'error');
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function resetDemo() {
+        if (!confirm('Deseja limpar todos os dados locais do Convênio Biovetfarma DEMO?')) return;
+        Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
+        state.selectedPatientId = null;
+        state.selectedAtivoId = null;
+        state.generatedPrescription = null;
+        state.prescriptionUrl = null;
+        addToast('Dados locais removidos. Recarregando...', 'success');
+        setTimeout(() => {
+          window.location.reload();
+        }, 600);
+      }
+
+      function readStore(key, fallback) {
+        try {
+          const raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : fallback;
+        } catch (error) {
+          console.error(error);
+          return fallback;
+        }
+      }
+
+      function writeStore(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+
+      function formatDateTime(iso) {
+        if (!iso) return '-';
+        const date = new Date(iso);
+        return `${date.toLocaleDateString('pt-BR')} ${date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
+      }
+
+      function formatDate(iso) {
+        if (!iso) return '-';
+        return new Date(iso).toLocaleDateString('pt-BR');
+      }
+
+      function escapeHtml(value) {
+        if (value == null) return '';
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function addToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `<span>${message}</span><button type="button" aria-label="Fechar">✕</button>`;
+        const close = () => {
+          if (toast.parentElement) {
+            container.removeChild(toast);
+          }
+        };
+        toast.querySelector('button').addEventListener('click', close);
+        container.appendChild(toast);
+        setTimeout(close, 4000);
+      }
+
+      function openModal(title, contentHtml) {
+        const overlay = document.getElementById('modalOverlay');
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalBody').innerHTML = contentHtml;
+        overlay.classList.add('open');
+      }
+
+      function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('open');
+        document.getElementById('modalBody').innerHTML = '';
+      }
+
+      function switchView(view) {
+        state.currentView = view;
+        document.querySelectorAll('.view').forEach((section) => {
+          section.classList.toggle('active', section.id === `view-${view}`);
+        });
+        updateNavState();
+      }
+
+      window.addEventListener('storage', () => {
+        loadSession();
+        refreshUI();
+      });
+
+      init();
+    })();
   </script>
 </body>
 </html>
