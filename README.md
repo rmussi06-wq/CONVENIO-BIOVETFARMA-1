@@ -1,26 +1,54 @@
 # Convênio Biovetfarma
 
-Interface web para o portal do convênio dos profissionais Biovetfarma. Esta versão prepara toda a estrutura de autenticação e navegação; a integração com Apps Script e a planilha ainda será conectada nas próximas etapas.
+Portal PWA para colaboradores da Biovetfarma acompanharem o convênio de compras corporativas. A aplicação roda inteiramente em HTML, CSS e JavaScript puros, salva dados no `localStorage` e funciona offline graças ao service worker incluso.
 
-## O que já está pronto
+## Funcionalidades
 
-- Layout responsivo com cabeçalho, navegação por hash (`#/home`, `#/beneficios`, `#/documentos`) e rotas internas preparadas.
-- Fluxo de autenticação com Firebase Auth (login, cadastro com modal, recuperação de senha e logout).
-- Estrutura visual para destacar benefícios, documentos e um cartão de teste que chamará a rota de escrita na planilha.
-- Service worker e manifesto PWA já referenciados, prontos para evolução.
+- **Home acolhedora** com boas-vindas personalizadas, visão geral de solicitações e chamada para entrar no convênio.
+- **Compras** para envio do número de orçamento, descrição, valor estimado e observações ao administrador (demo sem integração externa).
+- **Histórico** com filtros de status e busca textual, listando todas as solicitações registradas no dispositivo.
+- **Sair** para encerrar a sessão mantendo os dados salvos localmente.
+- **PWA pronto**: manifesto com ícones oficiais da Biovetfarma, service worker com pré-cache e suporte offline.
 
-## O que você precisa configurar
+## Como usar
 
-1. **Firebase** – Preencha `firebase-init.js` com as credenciais reais do projeto e habilite e-mail/senha no Firebase Auth.
-2. **Apps Script** – Atualize a constante `APPS_SCRIPT_BASE` em `app.js` caso a URL de produção seja diferente e implemente as rotas esperadas (`register`, `testWrite`, etc.).
-3. **Assets do convênio** – Substitua textos temporários, listas de benefícios e inclua documentos reais conforme necessidade.
+1. Abra o `index.html` em um navegador moderno (ou sirva a pasta com qualquer servidor estático, ex.: `npx serve .`).
+2. Identifique-se com nome e e-mail corporativo para destravar as abas de Compras e Histórico.
+3. Envie novos orçamentos preenchendo o formulário. As informações ficam salvas apenas no `localStorage` do navegador.
+4. Consulte o Histórico para acompanhar o status e valores aproximados.
+5. Utilize a aba **Sair** para encerrar a sessão quando desejar (os dados permanecerão no dispositivo).
 
-## Como executar localmente
+## Personalização
 
-Basta servir os arquivos estáticos (ex.: `npx serve .`) e acessar pelo navegador. Para testar os fluxos autenticados será necessário fornecer uma configuração válida do Firebase.
+- As cores seguem a paleta Pantone fornecida (verde e azul Biovetfarma). Ajuste os valores no `:root` de `styles.css` para variações.
+- O logotipo e os ícones do PWA estão em `assets/brand/` e `assets/icons/`. Substitua pelos arquivos definitivos conforme necessário.
+- Para resetar o ambiente de demonstração, limpe o `localStorage` do navegador (chave `biovet-convenio-demo`).
 
-## Próximos passos sugeridos
+## Estrutura dos dados (localStorage)
 
-- Conectar o botão "Testar escrita" à rota real do Apps Script após validar o token Firebase.
-- Preencher a rota `register` no Apps Script para armazenar novos profissionais na planilha e enviar notificações.
-- Completar o service worker com pré-cache e política offline conforme os assets definitivos do projeto.
+```json
+{
+  "session": {
+    "name": "Colaborador",
+    "email": "nome@biovetfarma.com.br",
+    "department": "Setor",
+    "joinedAt": "2024-05-23T18:25:43.511Z"
+  },
+  "compras": {
+    "nome@biovetfarma.com.br": [
+      {
+        "id": "uuid",
+        "numero": "BVF-2024-001",
+        "descricao": "Descrição",
+        "fornecedor": "Farmácia",
+        "observacoes": "Observações",
+        "valor": 1234.56,
+        "status": "pendente",
+        "createdAt": "2024-05-23T18:30:00.000Z"
+      }
+    ]
+  }
+}
+```
+
+Como se trata de uma simulação, nenhum dado é enviado à internet. Ajuste o código para integrar com serviços reais quando estiver pronto.
