@@ -1,40 +1,197 @@
-<!doctype html>
-<html lang="pt-br">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Convênio Biovetfarma</title>
-  <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" content="#3CB3C0" />
-  <link rel="stylesheet" href="./styles.css?v=9" />
-</head>
-<body>
-  <header class="app-header">
-    <div class="brand">
-      <img src="./assets/brand/logo-header.png" alt="Biovetfarma" class="logo">
-      <div class="tt">
-        <h1>Biovetfarma</h1>
-        <span class="sub">Convênio</span>
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Convênio do Colaborador | Biovetfarma</title>
+    <meta name="description" content="Portal do convênio Biovetfarma para colaboradores enviarem orçamentos, acompanharem aprovações e acessarem benefícios." />
+    <meta name="theme-color" content="#1A7175" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon-180.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <noscript>Para utilizar o convênio, habilite o JavaScript no seu navegador.</noscript>
+    <header>
+      <div class="header-inner">
+        <a class="brand" href="#" data-view="home">
+          <img src="./assets/brand/logo-header.png" alt="Logotipo Biovetfarma" />
+          <h1>
+            Biovetfarma
+            <span>Convênio do colaborador</span>
+          </h1>
+        </a>
+        <nav>
+          <button class="nav-button active" data-view="home"><span class="icon">🏠</span> Home</button>
+          <button class="nav-button" data-view="compras"><span class="icon">🛒</span> Compras</button>
+          <button class="nav-button" data-view="historico"><span class="icon">📚</span> Histórico</button>
+          <button class="nav-button" data-view="sair"><span class="icon">🚪</span> Sair</button>
+        </nav>
+        <div class="profile-chip">
+          <span class="icon">🔐</span>
+          <span><strong>Visitante</strong><br />Entre para usar o convênio</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" data-view="home" class="active">
+        <div class="hero">
+          <div class="hero-content">
+            <p class="badge">Portal exclusivo para colaboradores Biovetfarma</p>
+            <h2 id="homeGreeting">Bem-vindo ao convênio Biovetfarma!</h2>
+            <p>
+              Simplificamos o processo de compras especiais para que você, colaborador, tenha acesso a condições diferenciadas dentro da Biovetfarma.
+              Envie solicitações, acompanhe aprovações e organize todas as etapas em um só lugar.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" id="ctaStart">Começar agora</button>
+              <button class="btn btn-outline" data-action="open-login">Entrar ou atualizar dados</button>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <img src="./assets/brand/logo-header.png" alt="Ilustração Biovetfarma" />
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <article class="summary-card">
+            <div class="icon">🗂️</div>
+            <h3>Solicitações enviadas</h3>
+            <p class="lead"><span id="homeTotalRequests">00</span></p>
+            <p class="helper-text">Todos os orçamentos cadastrados no convênio.</p>
+          </article>
+          <article class="summary-card">
+            <div class="icon">⏳</div>
+            <h3>Em análise</h3>
+            <p class="lead"><span id="homePendingRequests">00</span></p>
+            <p class="helper-text">Orçamentos aguardando aprovação do administrador.</p>
+          </article>
+          <article class="summary-card">
+            <div class="icon">✅</div>
+            <h3>Aprovados</h3>
+            <p class="lead"><span id="homeApprovedRequests">00</span></p>
+            <p class="helper-text">Solicitações liberadas para compra na empresa.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="compras" data-view="compras">
+        <h2 class="section-title">Envie o número do seu orçamento</h2>
+        <div class="card">
+          <p class="helper-text">Preencha os dados abaixo para encaminhar o orçamento ao administrador da Biovetfarma. Você pode acompanhar o status na aba Histórico.</p>
+          <form id="purchaseForm">
+            <label for="numero">Número do orçamento *</label>
+            <input type="text" id="numero" name="numero" placeholder="Ex.: BVF-2024-001" required />
+
+            <label for="descricao">Descrição ou itens principais</label>
+            <input type="text" id="descricao" name="descricao" placeholder="Ex.: Medicamentos dermatológicos" />
+
+            <label for="valor">Valor estimado (R$)</label>
+            <input type="text" inputmode="decimal" id="valor" name="valor" placeholder="0,00" />
+
+            <label for="fornecedor">Clínica/Farmácia ou setor responsável</label>
+            <input type="text" id="fornecedor" name="fornecedor" placeholder="Informe a unidade ou contato" />
+
+            <label for="observacoes">Observações ao administrador</label>
+            <textarea id="observacoes" name="observacoes" placeholder="Compartilhe detalhes importantes para análise"></textarea>
+
+            <div class="helper-text">* Somente números válidos serão avaliados. Certifique-se de que o orçamento foi gerado internamente.</div>
+
+            <button type="submit" class="btn btn-primary">
+              <span class="icon">📨</span>
+              Enviar para aprovação
+            </button>
+          </form>
+        </div>
+
+        <aside class="info-panel">
+          <h3>Como funciona?</h3>
+          <ul>
+            <li><span class="icon">1️⃣</span>Informe o número do orçamento fornecido pelo setor comercial.</li>
+            <li><span class="icon">2️⃣</span>Nossa equipe administrativa recebe a solicitação automaticamente.</li>
+            <li><span class="icon">3️⃣</span>Acompanhe o retorno de aprovação ou ajustes na aba Histórico.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="historico" data-view="historico">
+        <h2 class="section-title">Histórico de solicitações</h2>
+        <p class="helper-text">Filtre pelos status e encontre rapidamente os orçamentos já enviados para acompanhamento.</p>
+
+        <div class="filters">
+          <div class="filter">
+            <label for="historyFilterStatus">Status</label>
+            <select id="historyFilterStatus">
+              <option value="todas">Todas</option>
+              <option value="pendente">Pendentes</option>
+              <option value="aprovado">Aprovadas</option>
+              <option value="negado">Negadas</option>
+            </select>
+          </div>
+          <div class="filter">
+            <label for="historyFilterSearch">Buscar</label>
+            <input type="search" id="historyFilterSearch" placeholder="Procure por número, fornecedor ou descrição" />
+          </div>
+        </div>
+
+        <div class="history-table-wrapper">
+          <table aria-live="polite">
+            <thead>
+              <tr>
+                <th scope="col">Orçamento</th>
+                <th scope="col">Enviado em</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <p id="historyTotals" class="helper-text"></p>
+      </section>
+
+      <section id="sair" data-view="sair">
+        <h2 class="section-title">Encerrar sessão</h2>
+        <div class="logout-card">
+          <div id="logoutInfo"></div>
+          <button id="logoutButton" class="btn btn-primary"><span class="icon">🔒</span> Sair do convênio</button>
+          <p class="helper-text">Ao sair, seus dados permanecem salvos neste dispositivo, mas você precisará se identificar novamente para acessar as páginas de Compras e Histórico.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <img src="./assets/icons/icon-192.png" alt="Ícone Biovetfarma" />
+        <p>Convênio Biovetfarma &mdash; desenvolvido para cuidar de quem cuida. Acompanhe suas solicitações com segurança e comodidade, onde estiver.</p>
+      </div>
+    </footer>
+
+    <div class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="modal-backdrop" id="loginBackdrop" role="dialog" aria-modal="true">
+      <div class="modal" id="loginModal">
+        <button type="button" class="modal-close" data-action="close-modal" aria-label="Fechar">&times;</button>
+        <h3>Identifique-se</h3>
+        <p class="helper-text">Use seu e-mail corporativo para que possamos personalizar o convênio para você.</p>
+        <form id="loginForm">
+          <label for="loginName">Nome completo</label>
+          <input type="text" id="loginName" required placeholder="Digite seu nome" />
+
+          <label for="loginEmail">E-mail corporativo</label>
+          <input type="email" id="loginEmail" required placeholder="nome.sobrenome@biovetfarma.com.br" />
+
+          <label for="loginDepartment">Setor (opcional)</label>
+          <input type="text" id="loginDepartment" placeholder="Ex.: Comercial, Laboratório" />
+
+          <button type="submit" class="btn btn-primary"><span class="icon">✨</span> Entrar no convênio</button>
+        </form>
       </div>
     </div>
-    <div id="userBadge" class="user-badge"></div>
-  </header>
 
-  <section id="appView" class="view">
-    <div class="card" id="testCard">
-      <h3>Teste Sheets</h3>
-      <p>Clique para escrever <b>"deu certo"</b> na célula <b>A3</b> da aba <b>FUNCIONARIOS</b>.</p>
-      <button id="btnTestWrite">Testar escrita</button>
-      <pre id="testOut" style="margin-top:.75rem; background:#f8fafc; padding:.5rem; border-radius:8px; overflow:auto"></pre>
-    </div>
-  </section>
-
-  <script type="module" src="./firebase-init.js?v=9"></script>
-  <script type="module" src="./app.js?v=9"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=9'));
-    }
-  </script>
-</body>
+    <script src="./app.js"></script>
+  </body>
 </html>

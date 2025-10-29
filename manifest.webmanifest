@@ -1,13 +1,23 @@
 {
   "name": "Convênio Biovetfarma",
   "short_name": "Convênio",
-  "description": "PWA do Convênio Biovetfarma",
-  "start_url": ".",
-  "scope": ".",
+  "description": "Portal do convênio Biovetfarma para colaboradores acompanharem orçamentos e compras corporativas.",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#3CB3C0",
+  "background_color": "#F2F6F4",
+  "theme_color": "#1A7175",
   "icons": [
+    {
+      "src": "./assets/icons/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icons/apple-touch-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
     {
       "src": "./assets/icons/icon-192.png",
       "sizes": "192x192",
