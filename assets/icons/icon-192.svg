@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-labelledby="title desc">
+  <title id="title">Ícone Convênio Biovetfarma</title>
+  <desc id="desc">Marca minimalista para o PWA do convênio Biovetfarma</desc>
+  <defs>
+    <linearGradient id="grad192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A7F7F" />
+      <stop offset="100%" stop-color="#075E5E" />
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="40" fill="#F7FAFA" />
+  <circle cx="96" cy="74" r="48" fill="url(#grad192)" />
+  <path fill="#F2B705" d="M96 50a24 24 0 1 0 24 24A24 24 0 0 0 96 50zm0 38a14 14 0 1 1 14-14 14 14 0 0 1-14 14z" />
+  <rect x="48" y="128" width="96" height="20" rx="10" fill="#0A7F7F" />
+</svg>

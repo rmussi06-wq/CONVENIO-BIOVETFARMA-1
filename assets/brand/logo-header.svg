@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" role="img" aria-labelledby="title desc">
+  <title id="title">Biovetfarma Convênio</title>
+  <desc id="desc">Marca simplificada utilizada no portal do convênio Biovetfarma</desc>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A7F7F" />
+      <stop offset="100%" stop-color="#075E5E" />
+    </linearGradient>
+  </defs>
+  <rect width="360" height="120" rx="20" fill="#F7FAFA" />
+  <rect x="16" y="18" width="84" height="84" rx="20" fill="url(#grad)" />
+  <path fill="#F2B705" d="M58 44c-9 0-16 7-16 16s7 16 16 16 16-7 16-16-7-16-16-16zm0 26a10 10 0 1 1 10-10 10 10 0 0 1-10 10z" />
+  <text x="120" y="58" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="30" font-weight="700" fill="#0F1E1E">Biovetfarma</text>
+  <text x="120" y="88" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#1A7175">Convênio do colaborador</text>
+</svg>

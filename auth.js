@@ -33,6 +33,7 @@ function show(v){
   loginView.classList.toggle('hidden', app);
   appView.classList.toggle('hidden', !app);
   topNav?.classList.toggle('hidden', !app);
+  btnLogout?.classList.toggle('hidden', !app);
 }
 
 function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
@@ -69,8 +70,11 @@ btnLogin?.addEventListener('click', async () => {
 
 /* Enter envia login quando estiver na view de login */
 document.addEventListener('keydown', (e)=>{
-  if (e.key==='Enter' && !appView || (e.key==='Enter' && !appView.classList.contains('hidden') )) return;
-  if (e.key==='Enter') btnLogin?.click();
+  if (e.key !== 'Enter') return;
+  if (!loginView || loginView.classList.contains('hidden')) return;
+  const active = document.activeElement;
+  if (active && (active.tagName === 'TEXTAREA' || active.getAttribute('type') === 'submit')) return;
+  btnLogin?.click();
 });
 
 /* ========== Abrir modal de cadastro ========== */

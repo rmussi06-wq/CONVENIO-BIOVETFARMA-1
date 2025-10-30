@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">Apple Touch Convênio Biovetfarma</title>
+  <desc id="desc">Ícone otimizado para atalhos do iOS</desc>
+  <defs>
+    <linearGradient id="gradApple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A7F7F" />
+      <stop offset="100%" stop-color="#075E5E" />
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" rx="38" fill="#F7FAFA" />
+  <circle cx="90" cy="68" r="52" fill="url(#gradApple)" />
+  <path fill="#F2B705" d="M90 40a28 28 0 1 0 28 28A28 28 0 0 0 90 40zm0 44a16 16 0 1 1 16-16 16 16 0 0 1-16 16z" />
+  <rect x="50" y="122" width="80" height="22" rx="11" fill="#0A7F7F" />
+</svg>
