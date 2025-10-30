@@ -26,6 +26,7 @@
           <button class="nav-button active" data-view="home"><span class="icon">🏠</span> Home</button>
           <button class="nav-button" data-view="compras"><span class="icon">🛒</span> Compras</button>
           <button class="nav-button" data-view="historico"><span class="icon">📚</span> Histórico</button>
+          <button class="nav-button admin-only" data-view="admin"><span class="icon">🛡️</span> Admin</button>
           <button class="nav-button" data-view="sair"><span class="icon">🚪</span> Sair</button>
         </nav>
         <div class="profile-chip">
@@ -80,19 +81,10 @@
       <section id="compras" data-view="compras">
         <h2 class="section-title">Envie o número do seu orçamento</h2>
         <div class="card">
-          <p class="helper-text">Preencha os dados abaixo para encaminhar o orçamento ao administrador da Biovetfarma. Você pode acompanhar o status na aba Histórico.</p>
+          <p class="helper-text">Informe o número do orçamento interno gerado pelo setor responsável e envie para análise da administração Biovetfarma.</p>
           <form id="purchaseForm">
             <label for="numero">Número do orçamento *</label>
             <input type="text" id="numero" name="numero" placeholder="Ex.: BVF-2024-001" required />
-
-            <label for="descricao">Descrição ou itens principais</label>
-            <input type="text" id="descricao" name="descricao" placeholder="Ex.: Medicamentos dermatológicos" />
-
-            <label for="valor">Valor estimado (R$)</label>
-            <input type="text" inputmode="decimal" id="valor" name="valor" placeholder="0,00" />
-
-            <label for="fornecedor">Clínica/Farmácia ou setor responsável</label>
-            <input type="text" id="fornecedor" name="fornecedor" placeholder="Informe a unidade ou contato" />
 
             <label for="observacoes">Observações ao administrador</label>
             <textarea id="observacoes" name="observacoes" placeholder="Compartilhe detalhes importantes para análise"></textarea>
@@ -118,7 +110,7 @@
 
       <section id="historico" data-view="historico">
         <h2 class="section-title">Histórico de solicitações</h2>
-        <p class="helper-text">Filtre pelos status e encontre rapidamente os orçamentos já enviados para acompanhamento.</p>
+        <p class="helper-text">Acompanhe os orçamentos enviados, visualize a data prevista para desconto em folha e utilize os filtros por status, mês e colaborador (exclusivo para administradores).</p>
 
         <div class="filters">
           <div class="filter">
@@ -130,9 +122,19 @@
               <option value="negado">Negadas</option>
             </select>
           </div>
+          <div class="filter admin-only">
+            <label for="historyFilterCollaborator">Colaborador</label>
+            <select id="historyFilterCollaborator">
+              <option value="todos">Todos</option>
+            </select>
+          </div>
+          <div class="filter">
+            <label for="historyFilterMonth">Mês de desconto</label>
+            <input type="month" id="historyFilterMonth" />
+          </div>
           <div class="filter">
             <label for="historyFilterSearch">Buscar</label>
-            <input type="search" id="historyFilterSearch" placeholder="Procure por número, fornecedor ou descrição" />
+            <input type="search" id="historyFilterSearch" placeholder="Procure por número ou observações" />
           </div>
         </div>
 
@@ -142,15 +144,43 @@
               <tr>
                 <th scope="col">Orçamento</th>
                 <th scope="col">Enviado em</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Valor</th>
+                <th scope="col">Valor com desconto</th>
+                <th scope="col">Desconto em</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody id="historyTableBody"></tbody>
           </table>
         </div>
-        <p id="historyTotals" class="helper-text"></p>
+        <div class="history-actions">
+          <p id="historyTotals" class="helper-text"></p>
+          <button class="btn btn-outline admin-only" id="historyPrintButton"><span class="icon">🖨️</span> Imprimir relatório</button>
+        </div>
+      </section>
+
+      <section id="admin" data-view="admin">
+        <h2 class="section-title">Gestão administrativa do convênio</h2>
+        <p class="helper-text">Autorize ou ajuste os orçamentos enviados pelos colaboradores e programe o desconto em folha.</p>
+
+        <div class="card">
+          <div class="admin-filters">
+            <div>
+              <label for="adminFilterStatus">Status</label>
+              <select id="adminFilterStatus">
+                <option value="todos">Todos</option>
+                <option value="pendente">Pendentes</option>
+                <option value="aprovado">Aprovados</option>
+                <option value="negado">Negados</option>
+              </select>
+            </div>
+            <div>
+              <label for="adminFilterSearch">Buscar</label>
+              <input type="search" id="adminFilterSearch" placeholder="Procure por número ou colaborador" />
+            </div>
+          </div>
+
+          <div id="adminRequests" class="admin-requests"></div>
+        </div>
       </section>
 
       <section id="sair" data-view="sair">
